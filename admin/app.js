@@ -1,5 +1,5 @@
 // 电商商城管理后台 - 主入口
-// 模块结构（2026-05-27 重构）：
+// 模块结构：
 //   config/cloud.js       - CloudBase SDK 初始化
 //   lib/utils.js          - 通用工具（时间、折扣换算）
 //   lib/wx-api.js         - 微信 HTTP API（access_token、发货上报）
