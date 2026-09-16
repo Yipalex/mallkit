@@ -1,6 +1,6 @@
 {
   "admin": {
-    "sha": "84c69e1c1f2755f82b8f81199177872bf6903e78",
+    "sha": "9cadcb4df91edaf6ac85322dc8ff2062e799ed32",
     "emittedFiles": [
       ".cloudbaseignore",
       ".dockerignore",
@@ -18,6 +18,7 @@
       "lib/auth.js",
       "lib/cloud-files.js",
       "lib/cos.js",
+      "lib/gate-check-tmp.js",
       "lib/image.js",
       "lib/utils.js",
       "lib/wx-api.js",
