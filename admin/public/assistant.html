@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta name="theme-color" content="#436740"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>运营助手 - 示例商城</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.loli.net/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.loli.net/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #fcf9f4; color: #1c1c19;
+    font-size: 16px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  /* 全屏容器：顶栏 + 聊天区 */
+  #page-wrap { display: flex; flex-direction: column; height: 100dvh; min-height: 100dvh; }
+  #page-head {
+    flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; padding-top: calc(12px + env(safe-area-inset-top));
+    background: #436740; color: #fff;
+    box-shadow: 0 2px 10px rgba(28,28,25,0.12);
+  }
+  #page-head .head-title { flex: 1 1 auto; font-size: 16px; font-weight: 700; font-family: 'DM Sans','Noto Sans SC',sans-serif; }
+  #page-head a, #page-head button {
+    width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;
+    display: inline-flex; align-items: center; justify-content: center; transition: background .15s;
+  }
+  #page-head a:hover, #page-head button:hover { background: rgba(255,255,255,0.28); }
+  #page-head .material-symbols-outlined { font-size: 20px; }
+  #assistant-page-body { flex: 1 1 auto; min-height: 0; }
+  /* ===== 运营助手（assistant.js）聊天区通用样式 ===== */
+  .fa-root { display: flex; flex-direction: column; height: 100%; min-height: 0; background: #fcf9f4; }
+  .fa-list-wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .fa-row { display: flex; }
+  .fa-row-user { justify-content: flex-end; }
+  .fa-row-assistant, .fa-row-error, .fa-row-tool { justify-content: flex-start; }
+  .fa-bubble { max-width: 86%; padding: 10px 13px; border-radius: 1rem; font-size: 14px; line-height: 1.65; word-break: break-word; white-space: normal; }
+  .fa-bubble-user { background: #436740; color: #fff; border-bottom-right-radius: 6px; white-space: pre-wrap; }
+  .fa-bubble-assistant { background: #fff; color: #1c1c19; border: 1px solid #e5e2dd; border-bottom-left-radius: 6px; }
+  .fa-bubble-error { background: #ffdad6; color: #93000a; border-radius: 12px; font-size: 13px; }
+  .fa-bubble .fa-code { background: rgba(67,103,64,0.08); color: #2c4f2b; padding: 1px 5px; border-radius: 5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
+  .fa-bubble-user .fa-code { background: rgba(255,255,255,0.22); color: #fff; }
+  .fa-bubble .fa-list { margin: 4px 0 4px 1.1em; padding: 0; }
+  .fa-bubble .fa-list li { margin: 2px 0; }
+  .assistant-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; background: #436740; vertical-align: -0.15em; animation: fa-blink 1s step-end infinite; }
+  @keyframes fa-blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+  .fa-tool { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #f0ede8; border: 1px solid #e5e2dd; font-size: 12px; color: #424840; }
+  .fa-tool-done { background: #cfe6c7; border-color: #b6cdaf; color: #2c4f2b; }
+  .fa-tool-error { background: #ffdad6; border-color: #ffb4ab; color: #93000a; }
+  .fa-tool-icon { font-weight: 700; }
+  .fa-tool-ms { opacity: 0.65; }
+  .fa-welcome { margin: auto 0; text-align: center; padding: 24px 12px; color: #424840; }
+  .fa-welcome-title { font-size: 17px; font-weight: 700; color: #1c1c19; margin-bottom: 6px; font-family: 'DM Sans','Noto Sans SC',sans-serif; }
+  .fa-welcome-sub { font-size: 13px; color: #73796f; margin-bottom: 16px; }
+  .fa-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .fa-chip { padding: 7px 14px; border-radius: 999px; border: 1px solid #c2c8bd; background: #fff; font-size: 13px; color: #2c4f2b; cursor: pointer; transition: background .15s, transform .15s; }
+  .fa-chip:hover { background: #cfe6c7; transform: translateY(-1px); }
+  .fa-input-wrap { flex: 0 0 auto; display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px; border-top: 1px solid #e5e2dd; background: #fff; }
+  .fa-textarea { flex: 1 1 auto; resize: none; border: 1px solid #c2c8bd; border-radius: 14px; padding: 9px 12px; font-size: 14px; line-height: 1.5; max-height: 120px; outline: none; font-family: inherit; background: #fcf9f4; color: #1c1c19; }
+  .fa-textarea:focus { border-color: #436740; box-shadow: 0 0 0 2px rgba(67,103,64,0.12); }
+  .fa-send-btn { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; border: none; background: #436740; color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .15s, transform .15s; }
+  .fa-send-btn:hover { transform: scale(1.06); }
+  .fa-send-btn.fa-stop { background: #ba1a1a; }
+  /* 输入区吸底 + iOS 安全区，避免键盘遮挡 */
+  #assistant-page-body .fa-input-wrap {
+    position: sticky; bottom: 0;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+</style>
+</head>
+<body>
+<div id="page-wrap">
+  <div id="page-head">
+    <a href="/" title="返回后台"><span class="material-symbols-outlined">arrow_back</span></a>
+    <span class="head-title">运营助手</span>
+    <button id="assistant-page-new" title="新建会话" type="button"><span class="material-symbols-outlined">add_comment</span></button>
+  </div>
+  <div id="assistant-page-body"></div>
+</div>
+<script src="/assistant.js"></script>
+<script>
+(function () {
+  var body = document.getElementById('assistant-page-body');
+  if (!body || !window.ShopAssistant) return;
+  var inst = window.ShopAssistant.mount(body, { mode: 'page' });
+  var newBtn = document.getElementById('assistant-page-new');
+  if (newBtn) newBtn.addEventListener('click', function () { inst.newConversation(); });
+})();
+</script>
+</body>
+</html>

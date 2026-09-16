@@ -1,0 +1,16 @@
+# cloudbase 云托管上传时忽略的文件（ZIP 打包阶段，.dockerignore 在此阶段不生效）
+# 目的：mallkit-admin 主服务镜像不打入无关的大目录，加快构建、缩小镜像。
+
+# 运维脚本（gen-agent-token.js 等），运行时不需要
+scripts/
+
+# 版本控制 / 文档 / IDE
+.git/
+.claude/
+.codex/
+docs/
+*.bak
+*.bat
+
+# 依赖（构建时 npm install 重装）
+node_modules/

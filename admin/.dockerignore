@@ -1,0 +1,31 @@
+# 版本控制
+.git/
+.gitignore
+
+# IDE / AI 工具配置与备份
+.claude/
+.claude-backup/
+.codex/
+
+# 文档（运行时不需要）
+docs/
+CLAUDE.md
+AGENTS.md
+
+# 备份 / 脚本 / 测试调试页
+app.js.bak
+*.bak
+*.bat
+admin-animation-playground.html
+public/test-*.html
+public/debug-*.html
+
+# 依赖（构建时 npm install 重装）
+node_modules/
+
+# 运维脚本（如 gen-agent-token.js），运行时不需要
+scripts/
+
+# 杂项
+.DS_Store
+*.log

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>示例商城 - 分销员中心</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; background: #f6f8f5; }
+  .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 16px; }
+  .stat-val { font-size: 28px; font-weight: 700; color: #436740; }
+  .stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+  .badge-paid { background: #e8f5e9; color: #2e7d32; }
+  .badge-pending { background: #fff8e1; color: #f57f17; }
+  .badge-shipped { background: #e3f2fd; color: #1565c0; }
+  .badge-completed { background: #e8f5e9; color: #1b5e20; }
+  .badge-cancelled { background: #fce4ec; color: #b71c1c; }
+  .status-map { paid:'待发货', shipped:'配送中', completed:'已完成', cancelled:'已取消', pending_payment:'待支付', refund_pending:'退款中', refunded:'已退款' }
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav style="background:#436740" class="text-white px-6 py-4 flex justify-between items-center">
+  <span class="font-bold text-lg">✨ 分销员中心</span>
+  <a href="/logout" class="text-sm opacity-75 hover:opacity-100">退出</a>
+</nav>
+
+<div class="max-w-2xl mx-auto px-4 py-6">
+
+  <!-- 欢迎卡片 -->
+  <div class="card" style="background:linear-gradient(135deg,#436740,#2e7d32);color:white;padding:24px">
+    <div class="text-sm opacity-75 mb-1">欢迎回来</div>
+    <div class="text-2xl font-bold" id="dist-name">--</div>
+    <div class="mt-3 flex items-center gap-2">
+      <span class="text-sm opacity-75">专属码</span>
+      <span id="dist-code" class="font-mono text-xl font-bold tracking-widest">------</span>
+      <button onclick="copyCode()" class="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs transition-all">复制</button>
+    </div>
+  </div>
+
+  <!-- 数据统计 -->
+  <div class="grid grid-cols-2 gap-4 mb-4">
+    <div class="card text-center">
+      <div class="stat-val" id="stat-sales">¥0</div>
+      <div class="stat-label">累计带货额</div>
+    </div>
+    <div class="card text-center">
+      <div class="stat-val" id="stat-commission">¥0</div>
+      <div class="stat-label">累计提成</div>
+    </div>
+    <div class="card text-center">
+      <div class="stat-val" id="stat-settled">¥0</div>
+      <div class="stat-label">可提现金额</div>
+    </div>
+    <div class="card text-center">
+      <div class="stat-val" id="stat-orders">0</div>
+      <div class="stat-label">使用优惠码订单数</div>
+    </div>
+  </div>
+
+  <!-- 提现申请 -->
+  <div class="card">
+    <h3 class="font-bold text-gray-700 mb-3">申请提现</h3>
+    <div class="flex gap-2">
+      <input id="withdraw-amount" type="number" placeholder="输入提现金额（最低¥50）" min="50" step="0.01"
+        class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-green-200" />
+      <button onclick="applyWithdraw()"
+        class="bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-800 transition-all">申请</button>
+    </div>
+    <p id="withdraw-msg" class="text-xs text-gray-400 mt-2">提现将在1-3个工作日内处理</p>
+  </div>
+
+  <!-- 分享文案 -->
+  <div class="card">
+    <h3 class="font-bold text-gray-700 mb-3">推广文案</h3>
+    <div id="share-text" class="bg-gray-50 rounded-lg p-3 text-sm text-gray-600 whitespace-pre-line leading-relaxed"></div>
+    <button onclick="copyShareText()" class="mt-3 w-full bg-green-50 text-green-700 border border-green-200 py-2 rounded-lg text-sm font-semibold hover:bg-green-100 transition-all">
+      📋 复制推广文案
+    </button>
+  </div>
+
+  <!-- 订单列表 -->
+  <div class="card">
+    <h3 class="font-bold text-gray-700 mb-3">使用优惠码的订单</h3>
+    <div id="order-list">
+      <div class="text-center py-6 text-gray-400 text-sm">加载中...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let myCode = '';
+let myDiscount = 95;
+
+async function loadData() {
+  const res = await fetch('/api/my/stats');
+  const data = await res.json();
+  if (data.error) { alert('加载失败：' + data.error); return; }
+
+  myCode = data.referralCode || '';
+  document.getElementById('dist-name').textContent = data.nickname || '分销员';
+  document.getElementById('dist-code').textContent = myCode;
+
+  const s = data.stats || {};
+  const w = data.withdrawal || {};
+  document.getElementById('stat-sales').textContent = '¥' + (s.totalSalesAmount || 0).toFixed(2);
+  document.getElementById('stat-commission').textContent = '¥' + (s.totalCommissionEarned || 0).toFixed(2);
+  document.getElementById('stat-settled').textContent = '¥' + (w.settledAmount || 0).toFixed(2);
+  document.getElementById('stat-orders').textContent = (data.orders || []).length;
+
+  // 推广文案
+  const folded = (myDiscount / 10).toFixed(1).replace(/\.0$/, '');
+  document.getElementById('share-text').textContent =
+`🎁 示例商城 · 好物精选
+
+✨ 精选好物，品质保障
+✅ 好友专属优惠码：${myCode}
+💰 下单立享 ${folded} 折优惠
+
+👉 打开微信搜索示例商城小程序
+输入优惠码 ${myCode} 即可享受折扣~
+
+好物上新，等你来抢！`;
+
+  // 订单列表
+  const statusLabel = { paid:'待发货', shipped:'配送中', completed:'已完成', cancelled:'已取消', pending_payment:'待支付', refund_pending:'退款中', refunded:'已退款' };
+  const statusCls = { paid:'badge-paid', shipped:'badge-shipped', completed:'badge-completed', cancelled:'badge-cancelled', pending_payment:'badge-pending' };
+  const orders = data.orders || [];
+  if (orders.length === 0) {
+    document.getElementById('order-list').innerHTML = '<div class="text-center py-6 text-gray-400 text-sm">暂无订单，快去分享优惠码吧！</div>';
+    return;
+  }
+  document.getElementById('order-list').innerHTML = orders.map(o => {
+    const date = o.createTime ? new Date(o.createTime).toLocaleDateString('zh-CN') : '-';
+    const cls = statusCls[o.status] || 'badge-pending';
+    const label = statusLabel[o.status] || o.status;
+    return `<div class="flex justify-between items-center py-3 border-b border-gray-50 last:border-0">
+      <div>
+        <div class="text-sm font-mono text-gray-500">${o._id}</div>
+        <div class="text-xs text-gray-400">${date}</div>
+      </div>
+      <div class="text-right">
+        <div class="font-bold text-gray-700">¥${(o.finalPrice||0).toFixed(2)}</div>
+        <div class="text-xs text-green-600">+¥${(o.commission||0).toFixed(2)} 提成</div>
+        <span class="badge ${cls}">${label}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function copyCode() {
+  navigator.clipboard.writeText(myCode).then(() => alert('专属码已复制！'));
+}
+
+function copyShareText() {
+  const text = document.getElementById('share-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = '✅ 已复制！';
+    setTimeout(() => { btn.textContent = '📋 复制推广文案'; }, 2000);
+  });
+}
+
+async function applyWithdraw() {
+  const amount = parseFloat(document.getElementById('withdraw-amount').value);
+  if (!amount || amount < 50) { alert('最低提现金额为¥50'); return; }
+  const res = await fetch('/api/my/withdraw', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount })
+  });
+  const data = await res.json();
+  const msg = document.getElementById('withdraw-msg');
+  if (data.success) {
+    msg.textContent = '✅ 提现申请已提交，1-3个工作日内处理';
+    msg.style.color = '#2e7d32';
+    loadData();
+  } else {
+    msg.textContent = '❌ ' + (data.error || '提交失败');
+    msg.style.color = '#b71c1c';
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

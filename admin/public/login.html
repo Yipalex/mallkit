@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="light" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mallkit - 管理后台登录</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.loli.net/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.loli.net/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "secondary-fixed-dim": "#b6cdaf",
+          "on-primary-fixed": "#002204",
+          "surface-container-highest": "#e5e2dd",
+          "primary-container": "#7fa67a",
+          "tertiary": "#6b5c4c",
+          "primary-fixed-dim": "#a8d1a2",
+          "primary": "#436740",
+          "inverse-surface": "#31302d",
+          "surface": "#fcf9f4",
+          "outline-variant": "#c2c8bd",
+          "on-tertiary-container": "#3e3124",
+          "error": "#ba1a1a",
+          "tertiary-fixed": "#f4dfcb",
+          "inverse-on-surface": "#f3f0eb",
+          "secondary-fixed": "#d2e9ca",
+          "inverse-primary": "#a8d1a2",
+          "background": "#fcf9f4",
+          "on-background": "#1c1c19",
+          "surface-container-low": "#f6f3ee",
+          "on-secondary-container": "#53684f",
+          "surface-variant": "#e5e2dd",
+          "surface-container": "#f0ede8",
+          "on-secondary": "#ffffff",
+          "tertiary-fixed-dim": "#d7c3b0",
+          "surface-container-high": "#ebe8e3",
+          "on-tertiary": "#ffffff",
+          "on-surface-variant": "#424840",
+          "error-container": "#ffdad6",
+          "on-error": "#ffffff",
+          "on-primary-container": "#183b19",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-fixed": "#0d200c",
+          "tertiary-container": "#ab9987",
+          "primary-fixed": "#c4eebd",
+          "on-tertiary-fixed-variant": "#524436",
+          "surface-tint": "#436740",
+          "secondary": "#4f644b",
+          "on-tertiary-fixed": "#241a0e",
+          "on-primary": "#ffffff",
+          "outline": "#73796f",
+          "surface-bright": "#fcf9f4",
+          "on-primary-fixed-variant": "#2c4f2b",
+          "on-secondary-fixed-variant": "#384c35",
+          "surface-dim": "#dcdad5",
+          "secondary-container": "#cfe6c7",
+          "on-error-container": "#93000a",
+          "on-surface": "#1c1c19"
+        },
+        fontFamily: {
+          "headline": ["DM Sans", "Noto Sans SC", "sans-serif"],
+          "body": ["Noto Sans SC", "sans-serif"],
+          "label": ["DM Sans", "Noto Sans SC", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+  body { -webkit-font-smoothing: antialiased; letter-spacing: 0.01em; }
+  button { display: inline-flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex items-center justify-between px-8 py-4 font-headline text-sm tracking-wide shadow-sm">
+  <div class="text-2xl font-bold text-emerald-900">Mallkit 管理后台</div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center p-6 relative overflow-hidden">
+  <!-- Background Ambient Element -->
+  <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
+    <div class="w-full h-full" style="background:linear-gradient(135deg,#d9e4d5 0%,#f2efe9 60%,#cfe0d8 100%)"></div>
+  </div>
+
+  <!-- Login Container -->
+  <div class="w-full max-w-[480px] z-10">
+    <div class="bg-surface-container-lowest rounded-xl p-10 md:p-14 shadow-[0_20px_40px_rgba(28,28,25,0.08)] border border-outline-variant/20">
+
+      <!-- Brand Anchor -->
+      <div class="flex flex-col items-center mb-12">
+        <div class="w-20 h-20 bg-primary-fixed rounded-full flex items-center justify-center mb-6">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">storefront</span>
+        </div>
+        <h1 class="text-xl font-headline font-bold text-on-surface mb-1">Mallkit</h1>
+        <p class="text-secondary font-label uppercase tracking-widest text-xs">Mallkit Admin</p>
+      </div>
+
+      <!-- Error Message -->
+      <div id="errorMsg" class="hidden mb-6 px-4 py-3 bg-error-container text-on-error-container rounded-lg text-sm font-label flex items-center gap-2">
+        <span class="material-symbols-outlined text-base">error</span>
+        密码错误，请重试
+      </div>
+
+      <!-- 管理员登录表单 -->
+      <form action="/login" method="POST" class="space-y-5">
+        <!-- 用户名 -->
+        <div class="relative">
+          <label class="block text-xs font-bold font-label text-secondary mb-2 px-1 uppercase tracking-wider">用户名</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">person</span>
+            <input name="username" type="text" placeholder="管理员用户名" autocomplete="username" id="inp-username"
+              class="w-full bg-surface-container-highest border-none rounded-lg py-4 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none" required />
+          </div>
+        </div>
+        <!-- 密码 -->
+        <div class="relative">
+          <label class="block text-xs font-bold font-label text-secondary mb-2 px-1 uppercase tracking-wider">密码</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+            <input name="password" type="password" placeholder="登录密码" autocomplete="current-password"
+              class="w-full bg-surface-container-highest border-none rounded-lg py-4 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none" required />
+          </div>
+        </div>
+        <!-- TOTP（有需要时显示） -->
+        <div id="totp-field" class="relative" style="display:none">
+          <label class="block text-xs font-bold font-label text-secondary mb-2 px-1 uppercase tracking-wider">二次验证码（MFA）</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">security</span>
+            <input name="totp_code" type="text" inputmode="numeric" maxlength="6" placeholder="打开验证器App查看6位数字"
+              autocomplete="one-time-code"
+              class="w-full bg-surface-container-highest border-none rounded-lg py-4 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none tracking-widest text-center text-xl font-mono" />
+          </div>
+          <p class="text-xs text-secondary mt-1 px-1">使用 Google Authenticator 或微信键盘密码扫码绑定后获取</p>
+        </div>
+        <button type="submit"
+          class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold py-5 rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-2">
+          <span>立即登录</span>
+          <span class="material-symbols-outlined text-xl">arrow_forward</span>
+        </button>
+      </form>
+
+      <!-- Footer Links Inside Card -->
+      <div class="mt-12 pt-8 border-t border-surface-container flex justify-center gap-6 text-[10px] font-label uppercase tracking-widest text-stone-400">
+        <a class="hover:text-emerald-600 transition-all" href="#">安全中心</a>
+        <a class="hover:text-emerald-600 transition-all" href="#">隐私协议</a>
+        <a class="hover:text-emerald-600 transition-all" href="#">联系支持</a>
+      </div>
+    </div>
+
+    <!-- Contextual Note -->
+    <p class="mt-8 text-center text-secondary/60 text-xs font-label leading-relaxed">
+      © 2024 Mallkit.<br/>
+      为每一家店铺提供顺手的经营工具。
+    </p>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-8 mt-auto bg-stone-100 flex flex-col items-center justify-center space-y-4 font-headline text-xs uppercase tracking-widest text-stone-400">
+  <div class="flex gap-8 opacity-80 hover:opacity-100 transition-all">
+    <a class="hover:text-emerald-600 transition-all" href="#">Privacy Policy</a>
+    <a class="hover:text-emerald-600 transition-all" href="#">Terms of Service</a>
+    <a class="hover:text-emerald-600 transition-all" href="#">System Status</a>
+  </div>
+  <div class="text-stone-400 opacity-60">
+    © 2024 Mallkit. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const errMap = {
+    wrong_password: '用户名或密码错误，请重试',
+    need_totp: '请输入二次验证码（MFA）',
+    wrong_totp: '验证码错误，请重新获取',
+    '1': '登录失败，请重试',
+  };
+  const errType = new URLSearchParams(location.search).get('error');
+  if (errType) {
+    const el = document.getElementById('errorMsg');
+    el.classList.remove('hidden');
+    el.innerHTML = `<span class="material-symbols-outlined text-base">error</span> ${errMap[errType] || '登录失败'}`;
+    // 需要MFA时自动显示验证码字段
+    if (errType === 'need_totp' || errType === 'wrong_totp') {
+      document.getElementById('totp-field').style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>

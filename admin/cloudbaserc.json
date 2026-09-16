@@ -1,0 +1,6 @@
+{
+  "envId": "your-env-id",
+  "cloudrun": {
+    "name": "mallkit-admin"
+  }
+}
