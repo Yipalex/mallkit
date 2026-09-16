@@ -50,11 +50,11 @@ The short version:
 3. Deploy the cloud functions and create the database collections.
 4. Deploy the admin backend to Cloud Run with the environment variables from
    [docs/05-配置项参考.md](docs/05-配置项参考.md).
-5. Open the admin backend, set your shop name and contact details, and upload a
-   logo. Most branding is read from the database, so you will not be editing
-   code for it.
+5. Open the admin backend and fill in your contact details, shipping rules and
+   pickup information. Those are read from the database.
 6. Work through [docs/04-品牌替换清单.md](docs/04-品牌替换清单.md) for the handful
-   of things that genuinely need a code change, such as theme colours.
+   of things that genuinely need a code change: the shop name, shipping rules and
+   theme colours.
 
 ## Repository layout
 
