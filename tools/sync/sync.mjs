@@ -22,7 +22,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
-const SELF_RELATIVE = 'tools/sync/sync.mjs';
+// The sync tooling is exempt from the repository-wide second pass. These files
+// describe and exercise the patterns they look for: the engine documents the
+// shapes, the pattern file defines them, and the self-test needs fixtures that
+// deliberately look like secrets. Scanning them would block every run.
+const SELF_EXEMPT = [
+  'tools/sync/sync.mjs',
+  'tools/sync/forbidden.json',
+  'tools/sync/selftest.mjs',
+];
 
 // ---------------------------------------------------------------- arguments
 
@@ -387,7 +395,7 @@ function main() {
   // Second pass: the whole repository, public patterns only. Catches slips in
   // our own docs and tooling. The engine itself is skipped because it documents
   // the pattern shapes it looks for.
-  const skipSelf = makeMatcher([SELF_RELATIVE, 'tools/sync/forbidden.json', target, `${target}/**`]);
+  const skipSelf = makeMatcher([...SELF_EXEMPT, target, `${target}/**`]);
   const repoHits = scanTree(destRoot, '', publicPatterns, textExt, skipSelf);
 
   const allHits = [...hits, ...repoHits];

@@ -30,8 +30,16 @@
     {
       "category": "wechat-appid",
       "pattern": "\\bwx[0-9a-f]{16}\\b",
-      "$note": "WeChat AppID. touristappid is the simulator placeholder and is allowed.",
-      "allow": []
+      "$note": [
+        "A mini program's own AppID identifies the shop, so it must not ship.",
+        "Templates use touristappid, which this pattern does not match.",
+        "The allowance below is Tencent's public logistics plugin provider id.",
+        "Every mini program using that plugin declares the same value, so it",
+        "identifies nobody and removing it would break waybill tracking."
+      ],
+      "allow": [
+        "^wx9ad912bf20548d92$"
+      ]
     },
     {
       "category": "tencent-secret-id",
@@ -45,7 +53,13 @@
     },
     {
       "category": "private-key-block",
-      "pattern": "-----BEGIN (?:RSA |EC |OPENSSH |PGP )?PRIVATE KEY-----"
+      "pattern": "-----BEGIN (?:RSA |EC |OPENSSH |PGP )?PRIVATE KEY-----[\\s\\\\rn\"'`]*[A-Za-z0-9+/]{40,}",
+      "$note": [
+        "Requires actual key material after the header, not the header alone.",
+        "Code that reformats a PEM loaded from an environment variable mentions",
+        "the header as a format constant; flagging that would push authors to",
+        "splice string literals in shipped code to appease the scanner."
+      ]
     },
     {
       "category": "jwt",

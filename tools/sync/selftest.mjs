@@ -194,6 +194,22 @@ git(['commit', '-q', '-m', 'remove leak'], upstream);
 const run5 = runSync(manifest, upstream, dest, ['--no-push']);
 check('移除泄露后恢复通过', run5.code === 0, run5.out.slice(0, 300));
 
+// ------------------------------------- run 6: tooling is exempt from the scan
+
+// The self-test carries fixtures that look exactly like secrets, on purpose.
+// If the repository-wide second pass scanned the sync tooling, every real run
+// would be blocked by this file. Copy it in and prove the run still passes.
+fs.copyFileSync(path.join(here, 'selftest.mjs'), path.join(dest, 'tools', 'sync', 'selftest.mjs'));
+const run6 = runSync(manifest, upstream, dest, ['--no-push']);
+check('同步工具自身豁免全仓扫描', run6.code === 0, run6.out.slice(0, 500));
+
+// A file outside the tooling with the same content must still be caught, so
+// the exemption is scoped and not a blanket hole.
+fs.writeFileSync(path.join(dest, 'docs', 'leaky.md'), 'tel 13912345678\n');
+const run7 = runSync(manifest, upstream, dest, ['--no-push']);
+check('豁免不外溢到其他目录', run7.code === 1, `code=${run7.code}`);
+fs.rmSync(path.join(dest, 'docs', 'leaky.md'));
+
 // --------------------------------------------- pattern-by-pattern coverage
 
 const patterns = JSON.parse(fs.readFileSync(path.join(here, 'forbidden.json'), 'utf8')).patterns;
@@ -221,7 +237,11 @@ const cases = [
   ['wechat-appid', 'appid touristappid', false],
   ['tencent-secret-id', `id=AKID${'E'.repeat(32)}`, true],
   ['tencent-app-id', 'bucket 636c-env-1300000001', true],
-  ['private-key-block', '-----BEGIN RSA PRIVATE KEY-----', true],
+  ['private-key-block', `-----BEGIN RSA PRIVATE KEY-----\n${'MIIEowIBAAKCAQEA'.repeat(4)}`, true],
+  // A bare header is a format constant, not a secret. Shipped code reformats a
+  // PEM read from the environment and legitimately mentions it.
+  ['private-key-block', "'-----BEGIN PRIVATE KEY-----'", false],
+  ['wechat-appid', 'provider wx9ad912bf20548d92', false],
   ['jwt', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJraW5kIjoiYWdlbnQifQ.sig', true],
   ['wecom-webhook', `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${'a'.repeat(8)}-0000`, true],
   ['uuid-token', `key ${'a'.repeat(8)}-1111-2222-3333-${'b'.repeat(12)}`, true],
