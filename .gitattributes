@@ -1,0 +1,17 @@
+# Normalize line endings so the sync engine is idempotent on every platform.
+# Without this, a checkout on Windows rewrites LF to CRLF and each sync run
+# would produce a diff against an unchanged upstream.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.pdf binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.mp4 binary
