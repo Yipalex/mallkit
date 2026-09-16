@@ -105,7 +105,7 @@ const SHOP_TOOLS = {
   },
   get_order: {
     schema: fnSchema('get_order', '查单个订单详情，并整理成可直接复制转发给供应商的文本（收货人/地址/商品/实付）。', {
-      orderId: { type: 'string', description: '订单号，如 O1782466350095243' },
+      orderId: { type: 'string', description: '订单号，如 O1234567890123456' },
       raw: { type: 'boolean', description: 'true 则返回原始 JSON 而非转发文本' },
     }, ['orderId']),
     handler: async (c, a) => {
