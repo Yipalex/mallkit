@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "openapi": [
+      "security.msgSecCheck",
+      "security.mediaCheckAsync",
+      "security.getUserRiskRank",
+      "wxacode.getUnlimited"
+    ]
+  }
+}

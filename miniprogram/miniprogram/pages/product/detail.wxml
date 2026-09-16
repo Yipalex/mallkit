@@ -1,0 +1,254 @@
+<!-- pages/product/detail.wxml - 商品详情页 -->
+
+<view wx:if="{{isLoading}}" class="loading-page">
+  <text class="text-hint">加载中...</text>
+</view>
+
+<view wx:elif="{{product}}" class="page">
+
+  <!-- 图片轮播（右下角页码指示） -->
+  <view class="gallery-wrap">
+    <swiper class="product-gallery" circular="{{true}}" autoplay="{{true}}" interval="{{3000}}" bindchange="onGalleryChange">
+      <swiper-item wx:for="{{displayGallery}}" wx:key="*this">
+        <image class="gallery-img" src="{{item}}" mode="aspectFit" />
+      </swiper-item>
+      <swiper-item wx:if="{{!displayGallery || displayGallery.length === 0}}">
+        <image class="gallery-img" src="{{product.mainImage}}" mode="aspectFit" />
+      </swiper-item>
+    </swiper>
+    <!-- 页码指示 -->
+    <view class="gallery-count" wx:if="{{displayGallery.length > 1}}">{{galleryIndex}}/{{displayGallery.length}}</view>
+    <!-- 售罄蒙版（库存为0但未下架，仍显示价格只是不能下单） -->
+    <view class="soldout-mask" wx:if="{{isSoldOut}}">
+      <text class="soldout-text">已售罄</text>
+    </view>
+  </view>
+
+  <!-- 价格 + 名称（叠压在大图下缘的白卡） -->
+  <view class="info-card">
+    <view class="price-row">
+      <view class="price-main">
+        <text class="price-symbol">¥</text>
+        <!-- 价格：多规格秒杀→秒杀最低价；多规格普通→最低价；单规格秒杀→秒杀价；单规格→原价 -->
+        <text class="price-big">{{product.hasSku ? (skuHasSeckill ? skuSeckillMinPrice : skuMinPrice) : (seckillActive ? seckillPrice : product.basePrice)}}</text>
+        <text class="price-unit" wx:if="{{product.hasSku}}"> 起</text>
+        <text class="price-unit">/{{product.unit || 'kg'}}</text>
+        <!-- 划线原价：多规格秒杀→最低原价；单规格秒杀→basePrice；普通折扣→originalPrice -->
+        <text class="price-old" wx:if="{{product.hasSku && skuHasSeckill}}">¥{{skuMinPrice}}</text>
+        <text class="price-old" wx:elif="{{seckillActive}}">¥{{product.basePrice}}</text>
+        <text class="price-old" wx:elif="{{product.originalPrice}}">¥{{product.originalPrice}}</text>
+      </view>
+      <!-- 限时秒杀标签（单规格秒杀 或 多规格有任一规格秒杀）-->
+      <view class="seckill-chip" wx:if="{{seckillActive || (product.hasSku && skuHasSeckill)}}">限时秒杀</view>
+      <!-- 会员价小标签 -->
+      <view class="vip-chip" wx:if="{{vipPrice}}">会员价 ¥{{vipPrice}}</view>
+    </view>
+
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-desc" wx:if="{{product.description}}">{{product.description}}</text>
+
+    <!-- 服务标签行 -->
+    <view class="tag-row" wx:if="{{product.tags && product.tags.length}}">
+      <text wx:for="{{product.tags}}" wx:key="*this" class="product-tag">{{item}}</text>
+    </view>
+
+    <!-- 销量/库存/评价 统计行 -->
+    <view class="stats-row">
+      <text wx:if="{{product.salesCount}}">已售 {{product.salesCount}}{{product.unit || 'kg'}}</text>
+      <text>库存 {{product.stock}}{{product.unit || 'kg'}}</text>
+      <text>评价 {{reviewTotal}} 条</text>
+    </view>
+  </view>
+
+  <!-- 规格 / 送至 / 服务 / 数量（列表卡） -->
+  <view class="selector-card">
+    <view class="selector-row" wx:if="{{product.hasSku}}" bindtap="openSkuModal" data-action="cart">
+      <text class="selector-label">规格</text>
+      <text class="selector-value">{{matchedSku ? matchedSku.specText : '请选择规格'}}</text>
+      <text class="selector-arrow">›</text>
+    </view>
+    <view class="selector-row" bindtap="onGoAddress">
+      <text class="selector-label">送至</text>
+      <text class="selector-value">{{addressText}}</text>
+      <text class="selector-arrow">›</text>
+    </view>
+    <view class="selector-row" wx:if="{{serviceVisible}}">
+      <text class="selector-label">{{serviceLabel}}</text>
+      <text class="selector-value">{{serviceText}}</text>
+    </view>
+    <view class="selector-row">
+      <text class="selector-label">数量</text>
+      <view class="qty-control">
+        <view class="qty-btn {{quantity <= 1 ? 'qty-btn-min' : ''}}" data-action="minus" bindtap="onQuantityChange">−</view>
+        <text class="qty-num">{{quantity}}</text>
+        <view class="qty-btn" data-action="plus" bindtap="onQuantityChange">+</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用户评价 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">用户评价 <text class="section-count">({{reviewTotal}})</text></text>
+      <text wx:if="{{reviewTotal > 3}}" class="section-more" bindtap="onViewAllReviews">{{reviewsExpanded ? '收起 ‹' : '查看全部 ›'}}</text>
+    </view>
+    <!-- 评价列表（紧凑排版：头像 + 昵称+星星一行 + 内容） -->
+    <view wx:if="{{reviews && reviews.length}}">
+      <view wx:for="{{reviews}}" wx:key="_id" class="review-item">
+        <image class="reviewer-avatar" src="{{item.userAvatar || '/assets/default-avatar.png'}}" mode="aspectFill" />
+        <view class="review-main">
+          <view class="reviewer-line">
+            <text class="reviewer-name">{{item.userName || '用户'}}</text>
+            <view class="review-stars">
+              <text wx:for="{{item.starsArr}}" wx:key="*this" class="star {{item ? 'filled' : ''}}">★</text>
+            </view>
+            <text class="review-date">{{item.dateText}}</text>
+          </view>
+          <text class="review-content">{{item.content}}</text>
+          <view class="review-imgs" wx:if="{{item.images && item.images.length}}">
+            <image wx:for="{{item.images}}" wx:key="*this" class="review-img" src="{{item}}" mode="aspectFill" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 暂无评价 -->
+    <view wx:else class="no-reviews">
+      <text class="no-reviews-text">暂无评价</text>
+      <text class="no-reviews-hint">快来抢沙发吧~</text>
+    </view>
+    <!-- 写评价按钮 -->
+    <button class="btn-write-review" bindtap="onWriteReview">写评价</button>
+  </view>
+
+  <!-- 图文详情 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">图文详情</text>
+    </view>
+    <!-- 详情图片列表 -->
+    <view class="detail-images" wx:if="{{product.detailImages && product.detailImages.length}}">
+      <image
+        wx:for="{{product.detailImages}}"
+        wx:key="*this"
+        class="detail-img"
+        src="{{item}}"
+        mode="widthFix"
+        lazy-load="{{true}}"
+      />
+    </view>
+    <!-- 详情横幅（兼容旧数据） -->
+    <view class="detail-banner" wx:elif="{{product.detailBanner}}">
+      <image src="{{product.detailBanner}}" mode="widthFix" style="width:100%;" />
+    </view>
+    <!-- 富文本详情（如果没有图片） -->
+    <!-- 按二维码切分渲染：普通内容走 rich-text，二维码单独用原生 image 以支持长按识别 -->
+    <view class="detail-rich-wrap" wx:else>
+      <block wx:for="{{detailSegments}}" wx:key="index">
+        <rich-text wx:if="{{item.type === 'html'}}" nodes="{{item.content}}"></rich-text>
+        <view wx:else class="detail-qrcode-box">
+          <image class="detail-qrcode" src="{{item.src}}" mode="widthFix" show-menu-by-longpress />
+          <text class="detail-qrcode-tip">长按识别二维码</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 底部安全区（给玻璃底栏留空间） -->
+  <view class="bottom-space"></view>
+
+</view>
+
+<!-- 底部操作栏：悬浮玻璃卡片（客服 / 购物车+角标 / 加购 / 立即购买） -->
+<view class="bottom-bar" wx:if="{{product}}">
+  <!-- 客服：视觉用 view，透明 button 铺满承载 open-type=contact（复用浮动客服组件手法，button 不参与布局） -->
+  <view class="bar-icon">
+    <view class="bar-icon-img icon-service"></view>
+    <text class="bar-icon-text">客服</text>
+    <button class="bar-hit" open-type="contact"></button>
+  </view>
+  <!-- 分享：打开分享面板（生成海报 / 发给微信好友） -->
+  <view class="bar-icon" bindtap="onOpenSharePanel">
+    <view class="bar-icon-img icon-share"></view>
+    <text class="bar-icon-text">分享</text>
+  </view>
+  <view class="bar-icon" bindtap="onGoToCart">
+    <view class="bar-icon-img icon-cart"></view>
+    <text class="bar-icon-text">购物车</text>
+    <view class="bar-icon-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+  </view>
+  <view class="btn-add-cart {{isSoldOut ? 'disabled' : ''}}" bindtap="onAddToCart">加入购物车</view>
+  <view class="btn-buy-now {{isSoldOut ? 'disabled' : ''}}" bindtap="onBuyNow">{{isSoldOut ? '已售罄' : '立即购买'}}</view>
+</view>
+
+<!-- ===== 规格选择弹窗 ===== -->
+<view class="sku-modal-mask" wx:if="{{showSkuModal}}" bindtap="onCloseSkuModal">
+  <view class="sku-modal" catchtap="noop">
+    <!-- 顶部：选中组合的图/价/库存 -->
+    <view class="sku-modal-header">
+      <image class="sku-modal-img" src="{{matchedSku.image || product.mainImage}}" mode="aspectFill" />
+      <view class="sku-modal-head-info">
+        <view class="sku-modal-price">
+          <text class="sku-price-symbol">¥</text>
+          <text class="sku-price-value">{{matchedSku ? (matchedSkuSeckillPrice ? matchedSkuSeckillPrice : matchedSku.price) : skuMinPrice}}</text>
+          <text class="sku-price-unit" wx:if="{{!matchedSku}}"> 起</text>
+          <text class="price-old" wx:if="{{matchedSku && matchedSkuSeckillPrice}}" style="margin-left:8rpx">¥{{matchedSku.price}}</text>
+          <text class="seckill-chip" wx:if="{{matchedSku && matchedSkuSeckillPrice}}" style="margin-left:8rpx">秒杀</text>
+        </view>
+        <text class="sku-modal-stock" wx:if="{{matchedSku}}">库存 {{matchedSku.stock}}</text>
+        <text class="sku-modal-selected">{{matchedSku ? matchedSku.specText : '请选择规格'}}</text>
+      </view>
+      <text class="sku-modal-close" catchtap="onCloseSkuModal">×</text>
+    </view>
+
+    <!-- 各维度选项 -->
+    <scroll-view scroll-y class="sku-modal-body">
+      <view class="sku-group" wx:for="{{product.specGroups}}" wx:for-item="group" wx:for-index="gi" wx:key="name">
+        <text class="sku-group-name">{{group.name}}</text>
+        <view class="sku-options">
+          <view wx:for="{{group.options}}" wx:for-item="opt" wx:for-index="oi" wx:key="*this"
+            class="sku-option {{selectedOptionIndexes[gi] === oi ? 'active' : ''}}"
+            data-gi="{{gi}}" data-oi="{{oi}}" bindtap="onSelectSkuOption">{{opt}}</view>
+        </view>
+      </view>
+
+      <!-- 数量 -->
+      <view class="sku-qty-row">
+        <text class="sku-group-name">数量</text>
+        <view class="qty-control">
+          <view class="qty-btn {{quantity <= 1 ? 'qty-btn-min' : ''}}" data-action="minus" bindtap="onQuantityChange">−</view>
+          <text class="qty-num">{{quantity}}</text>
+          <view class="qty-btn" data-action="plus" bindtap="onQuantityChange">+</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 底部确定按钮：未选齐/售罄则置灰 -->
+    <view class="sku-modal-footer">
+      <button wx:if="{{matchedSku && matchedSku.stock <= 0}}" class="sku-confirm-btn disabled">已售罄</button>
+      <button wx:else class="sku-confirm-btn" bindtap="onConfirmSku">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- ===== 分享面板（底栏「分享」唤起）===== -->
+<view class="share-panel-mask" wx:if="{{showSharePanel}}" bindtap="onCloseSharePanel">
+  <view class="share-panel" catchtap="noop">
+    <text class="share-panel-title">分享给好友</text>
+    <view class="share-panel-items">
+      <view class="share-item" bindtap="onPanelBuildPoster">
+        <view class="share-item-icon icon-poster"></view>
+        <text class="share-item-text">生成宣传海报</text>
+      </view>
+      <button class="share-item share-item-btn" open-type="share">
+        <view class="share-item-icon icon-wechat"></view>
+        <text class="share-item-text">分享给微信好友</text>
+      </button>
+    </view>
+    <view class="share-panel-cancel" bindtap="onCloseSharePanel">取消</view>
+  </view>
+</view>
+
+<!-- 海报绘制用的隐藏 canvas（样式见 wxss：不能 display:none）-->
+<view class="poster-canvas-holder">
+  <canvas type="2d" id="posterCanvas" style="width:750px;height:1200px"></canvas>
+</view>

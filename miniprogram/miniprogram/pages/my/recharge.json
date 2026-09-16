@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "账户充值",
+  "usingComponents": {
+    "login-guide": "/components/login-guide/index"
+  }
+}

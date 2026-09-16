@@ -1,0 +1,126 @@
+<!-- pages/fresh/index.wxml - 及时达 -->
+<view class="page">
+
+  <!-- 玻璃搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <view class="search-icon"></view>
+      <input class="search-input" placeholder="搜索及时达商品" bindinput="onSearch" value="{{keyword}}" />
+    </view>
+  </view>
+
+  <!-- 主体：左侧分类 + 右侧商品 -->
+  <view class="main-body">
+
+    <!-- 左侧分类栏 -->
+    <scroll-view class="category-rail" scroll-y>
+      <view
+        wx:for="{{categories}}"
+        wx:key="index"
+        class="cat-item {{activeCategory === index ? 'active' : ''}}"
+        bindtap="onCategoryTap"
+        data-index="{{index}}"
+      >
+        <view wx:if="{{activeCategory === index}}" class="cat-indicator"></view>
+        <text class="cat-text">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧商品 -->
+    <scroll-view class="product-panel" scroll-y bindscrolltolower="onLoadMore">
+      <view wx:if="{{loading && !products.length}}" class="loading-wrap">
+        <text class="text-hint">加载中...</text>
+      </view>
+      <view wx:else>
+        <view
+          wx:for="{{products}}"
+          wx:key="_id"
+          class="product-row"
+        >
+          <view class="product-img-box" bindtap="onProductTap" data-id="{{item._id}}">
+            <image class="product-img" src="{{item.mainImage}}" mode="aspectFill" />
+            <!-- 售罄蒙版（未下架但无库存） -->
+            <view class="soldout-mask" wx:if="{{item.isSoldOut}}">
+              <text class="soldout-badge">售罄</text>
+            </view>
+          </view>
+          <view class="product-info">
+            <text class="product-name" bindtap="onProductTap" data-id="{{item._id}}">{{item.name}}</text>
+            <text class="product-desc" bindtap="onProductTap" data-id="{{item._id}}">{{item.description || ''}}</text>
+            <view class="row-bottom">
+              <view class="price-main {{item.isSoldOut ? 'soldout' : ''}}" bindtap="onProductTap" data-id="{{item._id}}">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.basePrice}}</text>
+                <text class="price-unit" wx:if="{{item.hasSku}}"> 起</text>
+                <text class="price-unit">/{{item.unit || 'kg'}}</text>
+                <view class="vip-tag" wx:if="{{item.vipPrice && !item.isSoldOut}}">会员价 ¥{{item.vipPrice}}</view>
+              </view>
+              <!-- 右下操作：售罄不出按钮；多规格→选规格；旧版规格→弹窗；单规格→墨色圆形+ -->
+              <block wx:if="{{!item.isSoldOut}}">
+                <view wx:if="{{item.hasSku}}" class="btn-spec" catchtap="onProductTap" data-id="{{item._id}}">选规格</view>
+                <view wx:elif="{{item.specs && item.specs.length > 0}}" class="btn-spec" catchtap="onSelectSpec" data-item="{{item}}">选规格</view>
+                <view wx:else class="btn-plus {{addedProductId === item._id ? 'added' : ''}}" catchtap="onAddCart" data-item="{{item}}"></view>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{!products.length}}" class="empty-state">
+          <text class="empty-icon">📦</text>
+          <text class="empty-title">该分类暂无商品</text>
+        </view>
+        <view class="panel-bottom-space"></view>
+      </view>
+    </scroll-view>
+
+  </view>
+
+  <!-- 底部玻璃购物条（购物车有货才显示） -->
+  <view class="cart-bar" wx:if="{{cartCount > 0}}">
+    <view class="cart-bar-icon" bindtap="onGoCheckout">
+      <view class="cart-bar-badge">{{cartCount}}</view>
+    </view>
+    <view class="cart-bar-info">
+      <text class="cart-bar-total">¥{{cartTotal}}</text>
+      <text class="cart-bar-sub">全场包邮</text>
+    </view>
+    <view class="btn-checkout" bindtap="onGoCheckout">去结算</view>
+  </view>
+
+  <!-- 规格选择弹窗（旧版纯文本规格） -->
+  <view class="spec-modal-mask" wx:if="{{showSpecModal && currentProduct}}" bindtap="onCloseSpecModal">
+    <view class="spec-modal" catchtap="noop">
+      <view class="spec-modal-header">
+        <image class="spec-modal-img" src="{{currentProduct.mainImage}}" mode="aspectFill" />
+        <view class="spec-modal-info">
+          <text class="spec-modal-price">¥{{currentProduct.basePrice}}</text>
+          <text class="spec-modal-name">{{currentProduct.name}}</text>
+          <text class="spec-modal-selected">已选：{{selectedSpecText || '请选择'}}</text>
+        </view>
+        <view class="spec-modal-close" bindtap="onCloseSpecModal">✕</view>
+      </view>
+
+      <view wx:if="{{currentProduct.specs && currentProduct.specs.length > 0}}">
+        <block wx:for="{{currentProduct.specs}}" wx:key="name">
+          <view class="spec-group">
+            <text class="spec-group-name">{{item.name}}</text>
+            <view class="spec-options">
+              <block wx:for="{{item.values}}" wx:key="*this" wx:for-item="val" wx:for-index="vi">
+                <view
+                  class="spec-option {{specSelections[index] === vi ? 'selected' : ''}}"
+                  bindtap="onSpecOptionTap"
+                  data-group="{{index}}"
+                  data-index="{{vi}}"
+                >{{val}}</view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view class="spec-modal-footer">
+        <view class="btn-confirm" bindtap="onAddCartFromModal">确定</view>
+      </view>
+    </view>
+  </view>
+
+</view>

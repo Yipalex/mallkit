@@ -1,0 +1,270 @@
+/* app.wxss - 全局样式文件（2026-07 商城 UI 设计：浅色底极简 × 薄雾玻璃） */
+/* 这里定义整个小程序通用的颜色、字体、间距规范 */
+
+/* ===== 颜色变量（通过 page 选择器在全局生效）===== */
+page {
+  /* 主色：草绿（品牌主色） */
+  --color-primary: #5CAE52;
+  --color-primary-light: #6FC363;
+  --color-primary-dark: #4A9A42;
+  --color-primary-bg: #EAF6E5;       /* 绿色标签/图标浅底 */
+  --color-image-bg: #F2F7EE;         /* 商品图占位底 */
+
+  /* 墨色：深墨绿，主文字 + 强调按钮底色 */
+  --color-ink: #243426;
+
+  /* 辅助色 */
+  --color-accent: #E8963F;      /* 促销/价格高亮色：暖橙 */
+  --color-accent-bg: #FDF3E7;   /* 橙色标签浅底 */
+  --color-accent-deep: #E8963F; /* 会员价/强调橙（与主橙统一） */
+  --color-warning: #E8963F;     /* 警告色：暖橙 */
+  --color-danger: #E06A5A;      /* 危险/删除：柔和红 */
+
+  /* 中性色 */
+  --color-text-primary: #243426;    /* 主要文字：深墨绿 */
+  --color-text-secondary: #5B6B5D;  /* 次要文字 */
+  --color-text-light: #3C4A3E;      /* 次深文字（功能项标签） */
+  --color-text-hint: #9FB0A1;       /* 提示文字：灰绿 */
+  --color-text-disabled: #B9C4BA;   /* 禁用/删除线价格 */
+  --color-border: rgba(36, 52, 38, 0.07);   /* 卡片边框 */
+  --color-divider: rgba(36, 52, 38, 0.05);  /* 分割线 */
+  --color-bg: #F8FBF6;              /* 页面背景：浅色底 */
+  --color-white: #FFFFFF;
+
+  /* 玻璃层（薄雾玻璃悬浮元素） */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 12rpx 36rpx rgba(87, 141, 80, 0.08);
+
+  /* 字体大小 */
+  --font-size-xs: 20rpx;    /* 极小号，如标签 */
+  --font-size-sm: 22rpx;    /* 小号，如辅助说明 */
+  --font-size-base: 24rpx;  /* 正文大小 */
+  --font-size-md: 26rpx;    /* 中等 */
+  --font-size-lg: 28rpx;    /* 大号，如小标题 */
+  --font-size-xl: 32rpx;    /* 特大号，如价格、标题 */
+
+  /* 间距 */
+  --spacing-xs: 8rpx;
+  --spacing-sm: 16rpx;
+  --spacing-base: 24rpx;
+  --spacing-lg: 32rpx;
+  --spacing-xl: 48rpx;
+
+  /* 圆角（新设计整体更圆润：卡片 36rpx） */
+  --border-radius-sm: 16rpx;
+  --border-radius-base: 24rpx;
+  --border-radius-lg: 36rpx;
+  --border-radius-round: 100rpx;
+
+  /* 阴影（新设计以边框代替阴影，仅悬浮层用投影） */
+  --shadow-sm: none;
+  --shadow-base: 0 24rpx 64rpx rgba(36, 52, 38, 0.14);
+  --shadow-btn: 0 8rpx 24rpx rgba(92, 174, 82, 0.35);
+
+  /* 悬浮玻璃底栏占位高度（tab 页内容底部预留） */
+  --tabbar-space: 160rpx;
+
+  /* 全局字体 */
+  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+}
+
+/* ===== 通用工具类 ===== */
+
+/* Flex 布局 */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-1 { flex: 1; }
+
+/* 文字 */
+.text-primary { color: var(--color-primary); }
+.text-accent { color: var(--color-accent); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-hint { color: var(--color-text-hint); }
+.text-center { text-align: center; }
+.text-bold { font-weight: bold; }
+.text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 间距 */
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-base { margin-top: var(--spacing-base); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-base { margin-bottom: var(--spacing-base); }
+.p-base { padding: var(--spacing-base); }
+.p-lg { padding: var(--spacing-lg); }
+
+/* 卡片样式：白底 + 大圆角 + 细边框（不用阴影） */
+.card {
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+/* 玻璃卡片：半透明白 + 毛玻璃（不支持 blur 的机型自动降级为高不透明白底） */
+.glass {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(28rpx);
+    -webkit-backdrop-filter: blur(28rpx);
+  }
+}
+
+/* 按钮样式 */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--border-radius-round);
+  height: 88rpx;
+  padding: 0 40rpx;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  border: none;
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary::after { border: none; }
+
+/* 次按钮：浅绿底 + 绿字 */
+.btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  border: none;
+  border-radius: var(--border-radius-round);
+  height: 80rpx;
+  padding: 0 32rpx;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+}
+
+.btn-outline::after { border: none; }
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  border: 1rpx solid rgba(36, 52, 38, 0.1);
+  color: var(--color-text-light);
+  border-radius: var(--border-radius-round);
+  height: 80rpx;
+  padding: 0 32rpx;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+
+.btn-secondary::after { border: none; }
+
+/* 墨色强调小按钮：深墨绿底白字（如"去看看"） */
+.btn-ink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  color: var(--color-white);
+  border-radius: var(--border-radius-round);
+  height: 64rpx;
+  padding: 0 28rpx;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  border: none;
+}
+
+.btn-ink::after { border: none; }
+
+.btn-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--border-radius-round);
+  height: 64rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
+
+.btn-small::after { border: none; }
+
+/* 标签：浅底深字小圆角 */
+.tag-green {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-bg);
+  border-radius: 16rpx;
+  padding: 6rpx 16rpx;
+}
+
+.tag-orange {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-accent);
+  background: var(--color-accent-bg);
+  border-radius: 16rpx;
+  padding: 6rpx 16rpx;
+}
+
+/* 价格显示 */
+.price {
+  color: var(--color-accent);
+  font-weight: bold;
+}
+.price-symbol { font-size: var(--font-size-sm); }
+.price-value { font-size: var(--font-size-xl); }
+
+/* 分割线 */
+.divider {
+  height: 1rpx;
+  background: var(--color-divider);
+  margin: var(--spacing-sm) 0;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  color: var(--color-text-hint);
+}
+
+.empty-state image { width: 200rpx; height: 200rpx; margin-bottom: 24rpx; }
+.empty-state text { font-size: var(--font-size-sm); }
+
+/* 安全区域适配（底部全面屏） */
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* tab 页底部占位：给悬浮玻璃底栏留空间 */
+.tabbar-space {
+  height: var(--tabbar-space);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}

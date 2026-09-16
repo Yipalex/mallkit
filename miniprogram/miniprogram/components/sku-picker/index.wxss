@@ -1,0 +1,133 @@
+/* components/sku-picker - 规格选择浮层（样式自带，组件默认样式隔离，从 detail.wxss 复制） */
+
+/* ===== 规格选择弹窗 ===== */
+.sku-modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+.sku-modal {
+  width: 100%;
+  background: #fff;
+  border-radius: 36rpx 36rpx 0 0;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  /* 底部留出自定义 tabbar 的高度（约 120rpx）+ 安全区，避免确定按钮被浮动底栏挡住 */
+  padding-bottom: calc(150rpx + env(safe-area-inset-bottom));
+}
+.sku-modal-header {
+  position: relative;
+  display: flex;
+  padding: 28rpx 32rpx;
+  border-bottom: 1rpx solid var(--color-divider);
+}
+.sku-modal-img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 24rpx;
+  background: var(--color-image-bg);
+  flex-shrink: 0;
+}
+.sku-modal-head-info {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 8rpx;
+}
+.sku-modal-price {
+  display: flex;
+  align-items: baseline;
+  color: var(--color-accent);
+}
+.sku-price-symbol { font-size: 28rpx; font-weight: 600; }
+.sku-price-value { font-size: 48rpx; font-weight: 700; }
+.sku-price-unit { font-size: 26rpx; }
+.sku-modal-stock { font-size: 24rpx; color: var(--color-text-hint); margin-top: 6rpx; }
+.sku-modal-selected { font-size: 26rpx; color: var(--color-text-light); margin-top: 6rpx; }
+.sku-modal-close {
+  position: absolute;
+  top: 16rpx; right: 32rpx;
+  font-size: 48rpx;
+  color: var(--color-text-hint);
+  line-height: 1;
+}
+.sku-modal-body {
+  flex: 1;
+  padding: 8rpx 32rpx;
+  max-height: 50vh;
+}
+.sku-group { padding: 20rpx 0; }
+.sku-group-name {
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 16rpx;
+}
+.sku-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.sku-option {
+  padding: 14rpx 28rpx;
+  background: var(--color-bg);
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  color: var(--color-text-light);
+  border: 2rpx solid transparent;
+}
+.sku-option.active {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.sku-qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+}
+.sku-modal-footer {
+  padding: 16rpx 32rpx 24rpx;
+}
+.sku-confirm-btn {
+  width: 100%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 999rpx;
+  padding: 22rpx 0;
+  box-shadow: var(--shadow-btn);
+}
+.sku-confirm-btn::after { border: none; }
+.sku-confirm-btn.disabled {
+  background: var(--color-text-disabled);
+  box-shadow: none;
+}
+
+/* 数量步进器：细边框胶囊（与详情页一致） */
+.qty-control {
+  display: flex;
+  align-items: center;
+  border: 1rpx solid rgba(36, 52, 38, 0.12);
+  border-radius: 28rpx;
+  overflow: hidden;
+}
+.qty-btn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+}
+.qty-btn-min { color: var(--color-text-hint); }
+.qty-num { width: 56rpx; text-align: center; font-size: 24rpx; font-weight: 700; color: var(--color-text-primary); }

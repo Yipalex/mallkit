@@ -1,0 +1,9 @@
+{
+  "name": "gift",
+  "version": "1.0.0",
+  "description": "积分礼品兑换云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

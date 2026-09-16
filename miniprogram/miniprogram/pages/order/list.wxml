@@ -1,0 +1,99 @@
+<!-- pages/order/list.wxml - 订单列表 -->
+
+<!-- 登录引导组件 -->
+<login-guide show="{{showLoginGuide}}" bindclose="onCloseLoginGuide" />
+
+<!-- 状态胶囊 tab -->
+<view class="tabs">
+  <view
+    wx:for="{{tabs}}"
+    wx:key="*this"
+    class="tab {{activeTab === index ? 'active' : ''}}"
+    data-index="{{index}}"
+    bindtap="onTabChange"
+  >{{item}}</view>
+</view>
+
+<!-- 批量取消（仅待付款 tab 显示） -->
+<view wx:if="{{!showLoginGuide && activeTab === 1 && orders.length > 0}}" class="batch-bar">
+  <text class="batch-tip">共 {{orders.length}} 笔待付款订单</text>
+  <view class="btn-batch-cancel" bindtap="onBatchCancel">一键取消全部</view>
+</view>
+
+<!-- 订单列表 -->
+<view wx:if="{{!showLoginGuide}}" class="order-list">
+  <view
+    wx:for="{{orders}}"
+    wx:key="_id"
+    class="order-card"
+    data-id="{{item._id}}"
+    bindtap="onOrderTap"
+  >
+    <!-- 订单头部：单号 + 状态 -->
+    <view class="order-header">
+      <text class="order-id">订单号 {{item._id}}</text>
+      <text class="order-status st-{{item.status}}">{{item.statusText}}</text>
+    </view>
+
+    <!-- 商品摘要行：缩略图 + 标题/副标题 + 金额 -->
+    <view class="order-body">
+      <image wx:if="{{item.firstImage}}" class="order-thumb" src="{{item.firstImage}}" mode="aspectFill" />
+      <view wx:else class="order-thumb order-thumb-empty">商品图</view>
+      <view class="order-info">
+        <text class="order-title">{{item.summaryTitle}}</text>
+        <text class="order-sub">{{item.subText}}</text>
+        <!-- 物流状态行（已发货订单，绿色小货车） -->
+        <view class="order-track" wx:if="{{item.status === 'shipped' && item.expressNo}}">
+          <view class="track-icon"></view>
+          <text class="track-text">运输中 · 点「查看物流」看轨迹</text>
+        </view>
+      </view>
+      <text class="order-price">¥{{item.finalPrice}}</text>
+    </view>
+
+    <!-- 操作按钮（按状态：
+         待付款=取消/去支付；待发货=申请退款/联系客服；
+         待收货=查看物流/确认收货；已完成=再次购买/评价晒单；已取消=再次购买 -->
+    <view class="order-actions" wx:if="{{item.status === 'pending_payment' || item.status === 'paid' || item.status === 'shipped' || item.status === 'completed' || item.status === 'cancelled'}}">
+      <block wx:if="{{item.status === 'pending_payment'}}">
+        <view class="act act-ghost" catchtap="onCancelOrder" data-id="{{item._id}}">取消订单</view>
+        <view class="act act-orange" catchtap="onContinuePay" data-id="{{item._id}}">去支付</view>
+      </block>
+      <block wx:elif="{{item.status === 'paid'}}">
+        <view class="act act-ghost" catchtap="onApplyRefund" data-id="{{item._id}}">申请退款</view>
+        <!-- 视觉用 view，透明 button 铺满承载 open-type=contact -->
+        <view class="act act-line act-contact" catchtap="noop">
+          联系客服
+          <button class="act-hit" open-type="contact"></button>
+        </view>
+      </block>
+      <block wx:elif="{{item.status === 'shipped'}}">
+        <view class="act act-line" catchtap="onTrackLogistics" data-id="{{item._id}}">查看物流</view>
+        <view class="act act-green" catchtap="onConfirmReceive" data-id="{{item._id}}">确认收货</view>
+      </block>
+      <block wx:elif="{{item.status === 'completed'}}">
+        <view class="act act-line" catchtap="onBuyAgain" data-id="{{item._id}}">再次购买</view>
+        <view class="act act-green-line" catchtap="onGoReview" data-id="{{item._id}}">评价晒单</view>
+      </block>
+      <block wx:elif="{{item.status === 'cancelled'}}">
+        <view class="act act-line" catchtap="onBuyAgain" data-id="{{item._id}}">再次购买</view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 列表尾 -->
+  <view wx:if="{{orders.length > 0 && !isLoading}}" class="list-end">— 到底啦，去逛逛园子 —</view>
+</view>
+
+<!-- 加载中 -->
+<view wx:if="{{isLoading && !showLoginGuide}}" class="loading-wrap">
+  <text class="text-hint">加载中...</text>
+</view>
+
+<!-- 空状态 -->
+<view wx:elif="{{orders.length === 0 && !showLoginGuide}}" class="empty-state">
+  <text class="empty-icon">📋</text>
+  <text class="empty-title">暂无相关订单</text>
+  <text class="empty-sub">快去挑选你喜欢的新鲜好物吧</text>
+  <navigator url="/pages/index/index" open-type="switchTab" class="btn-primary empty-btn">去逛逛</navigator>
+</view>

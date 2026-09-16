@@ -1,0 +1,66 @@
+/* pages/address/edit.wxss */
+.page { background: var(--color-bg); min-height: 100vh; padding: 16rpx; padding-bottom: 160rpx; }
+
+.form-card {
+  background: var(--color-white);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid var(--color-border);
+}
+.form-row:last-child { border-bottom: none; }
+.form-label { width: 140rpx; font-size: var(--font-size-base); color: var(--color-text-primary); flex-shrink: 0; }
+.form-input { flex: 1; font-size: var(--font-size-base); color: var(--color-text-primary); }
+.form-value { flex: 1; font-size: var(--font-size-base); color: var(--color-text-primary); }
+.form-value.placeholder { color: var(--color-text-hint); }
+.form-arrow { font-size: var(--font-size-lg); color: var(--color-text-hint); }
+
+/* 提示卡片 */
+.tip-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  background: #FFF3E0;
+  border-radius: var(--border-radius-base);
+  padding: 20rpx 24rpx;
+  margin-bottom: 16rpx;
+}
+.tip-icon { font-size: 32rpx; flex-shrink: 0; }
+.tip-text { font-size: var(--font-size-sm); color: #E65100; line-height: 1.6; }
+
+/* 运费卡片 */
+.fee-card {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  background: var(--color-white);
+  border-radius: var(--border-radius-base);
+  padding: 24rpx;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16rpx;
+}
+.fee-icon { font-size: 40rpx; flex-shrink: 0; }
+.fee-info { flex: 1; }
+.fee-title { display: block; font-size: var(--font-size-base); font-weight: 600; color: var(--color-text-primary); margin-bottom: 4rpx; }
+.fee-sub { display: block; font-size: var(--font-size-xs); color: var(--color-text-hint); }
+.fee-price { font-size: var(--font-size-lg); font-weight: 700; color: var(--color-primary); }
+
+/* 底部 */
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom)); background: white; }
+.btn-save {
+  width: 100%;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: var(--font-size-lg);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-save.disabled { opacity: 0.5; }

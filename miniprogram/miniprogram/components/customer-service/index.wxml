@@ -1,0 +1,10 @@
+<!-- 浮动客服按钮：白底圆 + 🎧 + “客服”，透明 button 承载 open-type=contact（与「客服帮助→在线客服」同款效果） -->
+<view class="cs-fab" style="{{bottom ? 'bottom:' + bottom + ';' : ''}}">
+  <view class="cs-icon">🎧</view>
+  <view class="cs-text">客服</view>
+  <button class="cs-hit" open-type="contact"
+    show-message-card="true"
+    send-message-title="在线客服咨询"
+    send-message-path="pages/index/index"
+    send-message-img=""></button>
+</view>

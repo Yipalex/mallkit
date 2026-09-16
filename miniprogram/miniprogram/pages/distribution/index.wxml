@@ -1,0 +1,128 @@
+<!-- pages/distribution/index.wxml - 分销中心 -->
+
+<view class="page">
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 未开通状态 -->
+  <view wx:if="{{!isDistributor && !isLoading}}" class="join-wrap">
+    <view class="join-card">
+      <text class="join-title">成为分销员</text>
+      <text class="join-desc">推荐好友购买商品，好友下单你得返佣</text>
+      <view class="join-benefits">
+        <text class="benefit-item">✓ 专属带货二维码，扫码自动绑定</text>
+        <text class="benefit-item">✓ 客户下单，你获得提成</text>
+        <text class="benefit-item">✓ 无门槛免费加入</text>
+        <text class="benefit-item">✓ 满 50 元可申请提现</text>
+      </view>
+      <view class="btn-join" bindtap="onBecomeDistributor">立即成为分销员</view>
+    </view>
+  </view>
+
+  <!-- 已开通状态 -->
+  <view wx:elif="{{isDistributor && distributorInfo}}">
+
+    <!-- 玻璃收益卡 -->
+    <view class="earnings-card">
+      <view class="earnings-top">
+        <view class="earnings-main">
+          <text class="earnings-label">累计收益（元）</text>
+          <text class="earnings-total">{{distributorInfo.stats.totalCommissionEarned || '0.00'}}</text>
+        </view>
+        <view class="btn-withdraw-top" bindtap="onScrollToWithdraw">提现</view>
+      </view>
+      <view class="earnings-stats">
+        <view class="stat-cell">
+          <text class="stat-value">¥{{distributorInfo.withdrawal.settledAmount || '0.00'}}</text>
+          <text class="stat-label">可提现</text>
+        </view>
+        <view class="stat-cell stat-cell-mid">
+          <text class="stat-value">¥{{distributorInfo.withdrawal.pendingAmount || '0.00'}}</text>
+          <text class="stat-label">待结算</text>
+        </view>
+        <view class="stat-cell">
+          <text class="stat-value">{{distributorInfo.boundUserCount || 0}}</text>
+          <text class="stat-label">我的好友</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的带货码（直接展示二维码 + 分享按钮，取代原来的「我的推广码」入口卡） -->
+    <view class="section-card" id="qrcard">
+      <text class="card-title">我的带货码</text>
+      <view class="qrcode-wrap">
+        <image
+          wx:if="{{qrcodeFileID}}"
+          class="qrcode-img"
+          src="{{qrcodeFileID}}"
+          mode="aspectFit"
+          show-menu-by-longpress
+          bindlongpress="onSaveQrcode"
+        />
+        <view wx:else class="qrcode-placeholder">
+          <text class="text-hint">{{qrcodeLoading ? '二维码生成中...' : '二维码加载失败'}}</text>
+        </view>
+      </view>
+      <text class="code-tip">面对面扫码 / 长按保存二维码，朋友扫码即绑定为你的客户，TA 下单你得返佣 5%</text>
+      <!-- 分享给朋友：视觉用 view，透明 button 铺满承载 open-type=share -->
+      <view class="qr-share-btn">
+        <view class="qr-share-icon"></view>
+        <text>分享给朋友</text>
+        <button class="qr-share-hit" open-type="share"></button>
+      </view>
+    </view>
+
+    <!-- 收益明细（分销订单） -->
+    <view class="section-card">
+      <view class="card-header">
+        <text class="card-title">收益明细</text>
+        <text class="card-more">最近 30 单</text>
+      </view>
+      <view wx:if="{{ordersLoading}}" class="list-hint">加载中...</view>
+      <view wx:elif="{{myOrders.length === 0}}" class="list-hint">
+        还没有分销订单。分享你的二维码，朋友下单后这里会显示
+      </view>
+      <view wx:else>
+        <view wx:for="{{myOrders}}" wx:key="_id" class="earn-row">
+          <view class="earn-avatar {{item.alt ? 'earn-avatar-orange' : ''}}">{{item.avatarChar}}</view>
+          <view class="earn-info">
+            <text class="earn-title">{{item.buyerLabel}} 下单返利 <text class="earn-status">{{item.statusLabel}}</text></text>
+            <text class="earn-sub">{{item.dtStr}} · 订单 ¥{{item.finalPriceStr}}</text>
+            <text class="earn-items">{{item.itemsText}}</text>
+          </view>
+          <text class="earn-amount">+¥{{item.commissionStr}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 申请提现 -->
+    <view class="section-card" id="withdraw">
+      <text class="card-title">申请提现</text>
+      <text class="withdraw-tip">可提现 ¥{{distributorInfo.withdrawal.settledAmount || 0}}，最低 ¥{{distributorInfo.withdrawal.minWithdrawalAmount || 50}}</text>
+      <view class="withdraw-row">
+        <input
+          class="withdraw-input"
+          type="digit"
+          placeholder="输入提现金额"
+          value="{{withdrawAmount}}"
+          bindinput="onWithdrawInput"
+        />
+        <view class="btn-withdraw {{isWithdrawing ? 'disabled' : ''}}" bindtap="onWithdraw">
+          {{isWithdrawing ? '处理中...' : '申请提现'}}
+        </view>
+      </view>
+      <text class="withdraw-note">提现打款至微信零钱，1-3 个工作日到账</text>
+    </view>
+
+    <!-- 底部说明条 -->
+    <view class="tip-bar">
+      <text class="tip-text">收益满 ¥{{distributorInfo.withdrawal.minWithdrawalAmount || 50}} 可提现至微信零钱，1-3 个工作日到账</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:elif="{{isLoading}}" class="loading-wrap">
+    <text class="text-hint">加载中...</text>
+  </view>
+
+</view>

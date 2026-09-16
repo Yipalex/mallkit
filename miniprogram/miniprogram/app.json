@@ -1,0 +1,85 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/product/detail",
+    "pages/search/index",
+    "pages/cart/index",
+    "pages/order/list",
+    "pages/order/detail",
+    "pages/order/pay",
+    "pages/member/index",
+    "pages/distribution/index",
+    "pages/my/index",
+    "pages/my/settings",
+    "pages/my/recharge",
+    "pages/my/points",
+    "pages/my/balance",
+    "pages/checkin/index",
+    "pages/gift/index",
+    "pages/fresh/index",
+    "pages/address/list",
+    "pages/address/edit",
+    "pages/privacy/privacy",
+    "pages/terms/terms",
+    "pages/coupons/index",
+    "pages/help/index",
+    "pages/review/add",
+    "pages/login/index",
+    "pages/voucher/index",
+    "pages/voucher/confirm"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F8FBF6",
+    "navigationBarTitleText": "示例商城",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F8FBF6"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#9FB0A1",
+    "selectedColor": "#5CAE52",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/icons/home.png",
+        "selectedIconPath": "assets/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/member/index",
+        "text": "会员中心",
+        "iconPath": "assets/icons/member.png",
+        "selectedIconPath": "assets/icons/member-active.png"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "text": "购物车",
+        "iconPath": "assets/icons/cart.png",
+        "selectedIconPath": "assets/icons/cart-active.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "assets/icons/my.png",
+        "selectedIconPath": "assets/icons/my-active.png"
+      }
+    ]
+  },
+  "plugins": {
+    "logisticsPlugin": {
+      "version": "2.1.5",
+      "provider": "wx9ad912bf20548d92"
+    }
+  },
+  "requiredPrivateInfos": ["chooseAddress"],
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "useExtendedLib": {
+    "weui": true
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "__usePrivacyVersion": 20230901
+}

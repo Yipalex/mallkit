@@ -1,0 +1,33 @@
+<!-- pages/my/balance.wxml - 余额明细（充值记录 recharge_logs） -->
+<view class="page">
+  <view class="page-halo"></view>
+
+  <!-- 当前余额卡 -->
+  <view class="head-card">
+    <text class="head-label">账户余额（元）</text>
+    <text class="head-num">{{balance}}</text>
+  </view>
+
+  <!-- 充值记录列表 -->
+  <view wx:if="{{logs.length > 0}}" class="log-card">
+    <view wx:for="{{logs}}" wx:key="_id" class="log-row">
+      <view class="log-info">
+        <text class="log-desc">账户充值{{item.bonusText}}</text>
+        <text class="log-time">{{item.timeText}} · {{item.statusText}}</text>
+      </view>
+      <text class="log-amount {{item.status === 'success' ? 'plus' : 'pending'}}">+¥{{item.amount}}</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{!loading}}" class="empty-state">
+    <text class="empty-icon">💳</text>
+    <text class="empty-title">还没有充值记录</text>
+    <text class="empty-sub">充值余额可用于全场消费</text>
+  </view>
+
+  <view class="list-status">
+    <text wx:if="{{loading}}" class="text-hint">加载中...</text>
+    <text wx:elif="{{logs.length > 0 && !hasMore}}" class="text-hint">— 到底啦 —</text>
+  </view>
+</view>

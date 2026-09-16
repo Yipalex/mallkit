@@ -1,0 +1,157 @@
+<!--pages/terms/terms.wxml-->
+<view class="terms-container">
+
+  <!-- 充值服务个人信息授权声明 -->
+  <view wx:if="{{type === 'recharge'}}">
+    <view class="header">
+      <text class="title">充值服务个人信息授权声明</text>
+      <text class="update-time">更新日期：2026年5月5日</text>
+    </view>
+    <view class="content">
+      <view class="section">
+        <text class="section-title">一、信息收集范围</text>
+        <text class="text">为完成账户充值，我们将收集以下信息：微信用户唯一标识（OpenID）、充值金额、支付时间及交易流水号。</text>
+      </view>
+      <view class="section">
+        <text class="section-title">二、信息使用目的</text>
+        <text class="text">1. 核验您的身份，确保充值金额准确到账；</text>
+        <text class="text">2. 记录充值及积分发放明细，供您查询；</text>
+        <text class="text">3. 配合监管要求进行必要的合规审查。</text>
+      </view>
+      <view class="section">
+        <text class="section-title">三、信息共享</text>
+        <text class="text">我们不会将您的个人信息出售给第三方。仅在以下情况下共享：微信支付平台（完成支付）、法律法规要求的情形。</text>
+      </view>
+      <view class="section">
+        <text class="section-title">四、信息保存</text>
+        <text class="text">充值记录依法保存不少于5年，保存期间受严格的安全措施保护。</text>
+      </view>
+      <view class="section">
+        <text class="section-title">五、您的权利</text>
+        <text class="text">您可随时通过客服申请查询、更正或删除您的充值记录。</text>
+      </view>
+      <view class="section">
+        <text class="section-title">六、联系我们</text>
+        <text class="text">客服电话：400-000-0000</text>
+        <text class="text">电子邮箱：support@example.com</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用户服务协议（原有内容） -->
+  <view wx:else>
+  <view class="header">
+    <text class="title">用户服务协议</text>
+    <text class="update-time">更新日期：2024年4月1日</text>
+  </view>
+
+  <view class="content">
+    <view class="section">
+      <text class="section-title">欢迎使用"示例商城"</text>
+      <text class="text">感谢您选择使用本小程序。在使用本小程序前，请您仔细阅读本协议。如您不同意本协议的任何内容，请停止使用本小程序。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">一、服务说明</text>
+      <text class="text">本小程序是一家综合性电商平台，为用户提供优质商品的在线购买服务。我们保留随时修改、中断或终止服务的权利。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">二、用户注册与账户</text>
+      <view class="sub-section">
+        <text class="sub-title">2.1 注册资格</text>
+        <text class="text">您确认，在您完成注册程序或以其他方式实际使用本服务时，您应当是具备完全民事权利能力和完全民事行为能力的自然人。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">2.2 账户安全</text>
+        <text class="text">您对您的账户和密码的安全负全部责任，并对该账户下的所有活动负责。如发现有他人使用您的账户，请立即通知我们。</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">三、商品信息</text>
+      <text class="text">1. 我们努力确保商品信息的准确性，但由于商品更新较快，商品信息可能存在延迟或错误；</text>
+      <text class="text">2. 部分商品属于特殊商品，可能因季节、供应等原因导致价格和供应量变化；</text>
+      <text class="text">3. 图片仅供参考，请以实物为准。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">四、订单与支付</text>
+      <view class="sub-section">
+        <text class="sub-title">4.1 订单确认</text>
+        <text class="text">下单后，我们会与您联系确认订单。如商品缺货，我们有权取消订单并及时通知您。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">4.2 价格说明</text>
+        <text class="text">商品价格以订单生成时的价格为准。如发现错误定价，我们有权取消订单。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">4.3 支付方式</text>
+        <text class="text">支持微信支付。请在下单后15分钟内完成支付，逾期订单将自动取消。</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">五、配送服务</text>
+      <text class="text">1. 配送范围：仅限本小程序支持的配送区域；</text>
+      <text class="text">2. 配送时间：一般情况下订单确认后24-48小时内送达；</text>
+      <text class="text">3. 如遇特殊情况（如恶劣天气），配送时间可能延长；</text>
+      <text class="text">4. 请确保收货地址准确，因地址错误导致的损失由用户承担。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">六、退换货政策</text>
+      <view class="sub-section">
+        <text class="sub-title">6.1 退货条件</text>
+        <text class="text">1. 商品存在质量问题；</text>
+        <text class="text">2. 商品与描述严重不符；</text>
+        <text class="text">3. 收货后24小时内联系我们。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">6.2 不予退货</text>
+        <text class="text">1. 因个人原因（如不喜欢、不想要等）要求退货；</text>
+        <text class="text">2. 特殊商品已拆封或已使用；</text>
+        <text class="text">3. 超过退货时限。</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">七、用户行为规范</text>
+      <text class="text">您在使用本服务时不得从事以下行为：</text>
+      <text class="text">1. 发布违法、虚假信息；</text>
+      <text class="text">2. 恶意下单、恶意评价；</text>
+      <text class="text">3. 干扰服务的正常运行；</text>
+      <text class="text">4. 侵犯他人合法权益。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">八、知识产权</text>
+      <text class="text">本小程序的所有内容，包括但不限于文字、图片、音频、视频等，均受法律保护。未经授权，不得使用。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">九、免责声明</text>
+      <text class="text">1. 因不可抗力导致的服务中断或延迟，我们不承担责任；</text>
+      <text class="text">2. 因第三方服务（如支付、物流）导致的问题，我们将协助解决但不承担责任；</text>
+      <text class="text">3. 用户违规使用导致的损失，我们不承担责任。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">十、协议修改</text>
+      <text class="text">我们有权随时修改本协议，修改后的协议在小程序内公布后生效。如您继续使用服务，视为同意修改后的协议。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">十一、法律适用</text>
+      <text class="text">本协议的订立、执行和解释均适用中华人民共和国法律。如发生争议，双方协商解决；协商不成的，提交小程序所在地人民法院解决。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">十二、联系我们</text>
+      <text class="text">客服电话：400-000-0000</text>
+      <text class="text">电子邮箱：support@example.com</text>
+      <text class="text">营业时间：08:00 - 22:00</text>
+    </view>
+  </view>
+  </view>
+</view>

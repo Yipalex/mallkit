@@ -1,0 +1,166 @@
+.product-card {
+  background: var(--color-white, #fff);
+  border: 1rpx solid var(--color-border, rgba(36, 52, 38, 0.07));
+  border-radius: 28rpx;
+  overflow: hidden;
+}
+
+.product-img-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.product-image {
+  width: 100%;
+  height: 280rpx;
+  display: block;
+  background: var(--color-image-bg, #F2F7EE);
+}
+
+.sales-badge {
+  position: absolute;
+  bottom: 8rpx;
+  right: 8rpx;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 20rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 20rpx;
+}
+
+/* 限时秒杀角标：左上角，与详情页 .seckill-chip 同款橙红渐变 */
+.seckill-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff3b30 100%);
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 700;
+  padding: 6rpx 14rpx;
+  border-top-left-radius: 28rpx;
+  border-bottom-right-radius: 16rpx;
+}
+
+.product-info {
+  padding: 16rpx;
+}
+
+.product-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text-primary, #243426);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-desc {
+  font-size: 23rpx;
+  color: var(--color-text-hint, #9FB0A1);
+  display: block;
+  margin-top: 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14rpx;
+}
+
+.price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 2rpx;
+}
+
+.price-symbol {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: var(--color-accent, #E8963F);
+}
+
+.price-value {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-accent, #E8963F);
+}
+
+.price-unit {
+  font-size: 22rpx;
+  color: var(--color-text-disabled, #B9C4BA);
+  margin-left: 2rpx;
+}
+
+/* 秒杀时的划线原价（对齐详情页 .price-old）*/
+.price-old {
+  font-size: 22rpx;
+  color: var(--color-text-disabled, #B9C4BA);
+  text-decoration: line-through;
+  margin-left: 10rpx;
+}
+
+/* 墨色圆形加购按钮：默认白「+」；加入成功切绿底白勾 */
+.add-cart-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: var(--color-ink, #243426);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30rpx 30rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+  transition: all 0.2s ease;
+}
+
+.add-cart-btn:active {
+  transform: scale(0.9);
+}
+
+/* 加入成功：绿底 + 白勾 + 弹一下 */
+.add-cart-btn.added {
+  background-color: var(--color-primary, #5CAE52);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 10 17.5 19 7'/%3E%3C/svg%3E");
+  animation: cartSuccess 0.6s ease;
+}
+
+@keyframes cartSuccess {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ===== 售罄蒙版 ===== */
+.card-soldout-mask {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: inherit;
+}
+.card-soldout-text {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: 10rpx 32rpx;
+  border-radius: 999rpx;
+}
+/* 售罄时加购按钮置灰 */
+.add-cart-btn.disabled {
+  background-color: var(--color-text-disabled, #B9C4BA);
+}

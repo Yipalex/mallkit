@@ -1,0 +1,110 @@
+<!-- pages/search/index.wxml - 搜索页布局 -->
+
+<view class="page">
+
+  <!-- 搜索输入区 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <view class="search-icon"></view>
+      <input
+        class="search-input"
+        placeholder="搜索商品..."
+        value="{{keyword}}"
+        focus="{{true}}"
+        bindinput="onInput"
+        bindconfirm="onConfirm"
+        confirm-type="search"
+        placeholder-style="color:#9FB0A1"
+      />
+      <view wx:if="{{keyword}}" class="search-clear" bindtap="onClearInput">×</view>
+    </view>
+    <view class="search-btn" bindtap="onConfirm">搜索</view>
+  </view>
+
+  <!-- 搜索历史（未搜索时展示） -->
+  <view wx:if="{{!searched && history.length > 0}}" class="history-section">
+    <view class="history-head">
+      <text class="history-title">搜索历史</text>
+      <text class="history-clear" bindtap="onClearHistory">清空</text>
+    </view>
+    <view class="history-tags">
+      <view
+        wx:for="{{history}}"
+        wx:key="*this"
+        class="history-tag"
+        data-kw="{{item}}"
+        bindtap="onHistoryTap"
+      >{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 园里热搜（按真实销量 Top5，未搜索时展示） -->
+  <view wx:if="{{!searched && hotList.length > 0}}" class="hot-section">
+    <text class="section-title">园里热搜</text>
+    <view class="hot-card">
+      <view
+        wx:for="{{hotList}}"
+        wx:key="_id"
+        class="hot-row"
+        data-kw="{{item.name}}"
+        bindtap="onHistoryTap"
+      >
+        <text class="hot-rank {{index < 3 ? 'top' : ''}}">{{index + 1}}</text>
+        <text class="hot-name">{{item.name}}</text>
+        <text wx:if="{{item.hot}}" class="hot-chip">热</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 猜你想搜（未搜索时展示，点击进商品详情） -->
+  <view wx:if="{{!searched && guessList.length > 0}}" class="guess-section">
+    <text class="section-title">猜你想搜</text>
+    <view class="guess-grid">
+      <view
+        wx:for="{{guessList}}"
+        wx:key="_id"
+        class="guess-card"
+        data-id="{{item._id}}"
+        bindtap="onGuessTap"
+      >
+        <image class="guess-img" src="{{item.mainImage}}" mode="aspectFill" />
+        <view class="guess-info">
+          <text class="guess-name">{{item.name}}</text>
+          <text class="guess-price">¥{{item.guessPrice}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 搜索结果（两列网格，与首页一致） -->
+  <view wx:if="{{searched}}" class="product-grid">
+    <view
+      wx:for="{{products}}"
+      wx:key="_id"
+      class="product-item"
+    >
+      <product-card
+        product="{{item}}"
+        bind:producttap="onProductTap"
+        bind:addcart="onAddToCart"
+        bind:specrequest="onSpecRequest"
+      />
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{searched}}" class="load-status">
+    <view wx:if="{{isLoading}}" class="text-hint text-center">加载中...</view>
+    <view wx:elif="{{!hasMore && products.length > 0}}" class="text-hint text-center">— 已显示全部结果 —</view>
+  </view>
+
+  <!-- 无结果 -->
+  <view wx:if="{{searched && !isLoading && products.length === 0}}" class="empty-state">
+    <text class="empty-icon">✨</text>
+    <text>没有找到「{{keyword}}」相关商品</text>
+  </view>
+
+  <!-- 多规格商品：卡片「+」弹出的规格选择浮层 -->
+  <sku-picker product="{{skuPickerProduct}}" show="{{showSkuPicker}}" bind:confirm="onSkuConfirm" bind:close="onSkuClose" />
+
+</view>

@@ -1,0 +1,206 @@
+/* pages/my/recharge.wxss - 账户充值 */
+
+.page { background: var(--color-bg); min-height: 100vh; position: relative; padding-top: 24rpx; }
+
+/* 顶部浅绿渐晕 */
+.page-halo {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 484rpx;
+  background: linear-gradient(165deg, #E3F3DC, #F8FBF6);
+}
+
+/* ===== 玻璃余额卡 ===== */
+.balance-card {
+  position: relative;
+  margin: 32rpx 32rpx 0;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1rpx solid rgba(255, 255, 255, 0.95);
+  border-radius: 44rpx;
+  padding: 36rpx;
+  box-shadow: 0 20rpx 60rpx rgba(87, 141, 80, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .balance-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(32rpx);
+    -webkit-backdrop-filter: blur(32rpx);
+  }
+}
+.balance-label { font-size: 22rpx; color: #8AA08D; }
+.balance-value { font-size: 68rpx; font-weight: 800; color: var(--color-text-primary); line-height: 1.2; }
+/* 余额明细入口 */
+.balance-detail { display: flex; align-items: center; gap: 4rpx; margin-top: 8rpx; font-size: 22rpx; color: var(--color-primary); }
+.balance-detail-arrow { font-size: 26rpx; }
+
+/* ===== 区块标题 ===== */
+.section-title {
+  position: relative;
+  margin: 36rpx 32rpx 0;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* ===== 金额宫格 ===== */
+.amount-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin: 24rpx 32rpx 0;
+}
+.amount-item {
+  position: relative;
+  background: var(--color-white);
+  border: 1rpx solid rgba(36, 52, 38, 0.1);
+  border-radius: 28rpx;
+  padding: 24rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  overflow: hidden;
+}
+.amount-item.selected {
+  background: var(--color-primary-bg);
+  border: 3rpx solid var(--color-primary);
+  box-shadow: 0 12rpx 32rpx rgba(92, 174, 82, 0.18);
+}
+.amount-value { font-size: 30rpx; font-weight: 800; color: var(--color-text-primary); }
+.amount-item.selected .amount-value { color: #3E7A37; }
+.amount-bonus { font-size: 18rpx; color: var(--color-accent); }
+.amount-bonus-none { color: var(--color-text-disabled); }
+/* 「超值」角标 */
+.amount-hot {
+  position: absolute;
+  top: 0; right: 0;
+  font-size: 16rpx;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: 0 28rpx 0 14rpx;
+  padding: 3rpx 12rpx;
+}
+.amount-custom { border-style: dashed; border-color: rgba(36, 52, 38, 0.18); justify-content: center; }
+.amount-custom-text { font-size: 26rpx; color: var(--color-text-hint); }
+
+/* ===== 支付方式 ===== */
+.pay-card {
+  position: relative;
+  margin: 24rpx 32rpx 0;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 36rpx;
+  padding: 8rpx 32rpx;
+}
+.pay-row { display: flex; align-items: center; gap: 24rpx; padding: 26rpx 0; }
+.pay-icon {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 16rpx;
+  background-color: var(--color-primary-bg);
+  background-size: 30rpx 30rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 9h8M8 13h5'/%3E%3Cpath d='M4 4h16v12H13l-4 4v-4H4z'/%3E%3C/svg%3E");
+}
+.pay-name { flex: 1; font-size: 26rpx; color: var(--color-text-primary); }
+.pay-check {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  background-size: 22rpx 22rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 10 17.5 19 7'/%3E%3C/svg%3E");
+}
+
+/* ===== 说明条 ===== */
+.tip-bar {
+  position: relative;
+  margin: 28rpx 32rpx 0;
+  background: var(--color-accent-bg);
+  border-radius: 28rpx;
+  padding: 18rpx 28rpx;
+}
+.tip-text { font-size: 21rpx; color: #B06F1E; }
+
+/* ===== 协议 ===== */
+.agree-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin: 28rpx 32rpx 0;
+}
+.checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  border: 3rpx solid rgba(36, 52, 38, 0.2);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.checkbox.checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-size: 20rpx 20rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 10 17.5 19 7'/%3E%3C/svg%3E");
+}
+.agree-text { font-size: 22rpx; color: var(--color-text-hint); }
+.agree-link { color: var(--color-primary); }
+
+/* 底部留白（给玻璃结算栏） */
+.bottom-space {
+  height: 200rpx;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ===== 底部玻璃结算栏 ===== */
+.recharge-bar {
+  position: fixed;
+  left: 32rpx;
+  right: 32rpx;
+  bottom: calc(32rpx + constant(safe-area-inset-bottom));
+  bottom: calc(32rpx + env(safe-area-inset-bottom));
+  z-index: 100;
+  border-radius: 52rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 24rpx 24rpx 24rpx 44rpx;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1rpx solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 24rpx 64rpx rgba(36, 52, 38, 0.14);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .recharge-bar {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(40rpx);
+    -webkit-backdrop-filter: blur(40rpx);
+  }
+}
+.bar-summary { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.bar-label { font-size: 20rpx; color: var(--color-text-hint); }
+.bar-line { display: flex; align-items: baseline; gap: 12rpx; white-space: nowrap; }
+.bar-amount { font-size: 36rpx; font-weight: 800; color: var(--color-text-primary); }
+.bar-bonus { font-size: 22rpx; font-weight: 700; color: var(--color-accent); }
+.btn-recharge {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-primary);
+  border-radius: 44rpx;
+  padding: 24rpx 60rpx;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-btn);
+}
+.btn-recharge.disabled { background: var(--color-text-disabled); box-shadow: none; }

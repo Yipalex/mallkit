@@ -1,0 +1,66 @@
+.page { min-height: 100vh; background: #F8FBF6; padding-bottom: 160rpx; }
+
+.loading-box, .unusable-box { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 200rpx 60rpx; }
+.loading-text { color: #7a8b7a; font-size: 28rpx; }
+.unusable-icon { font-size: 100rpx; margin-bottom: 24rpx; }
+.unusable-title { font-size: 36rpx; font-weight: bold; color: #333; margin-bottom: 12rpx; }
+.unusable-reason { font-size: 28rpx; color: #e07b53; margin-bottom: 8rpx; text-align: center; }
+.unusable-sub { font-size: 24rpx; color: #999; margin-top: 8rpx; }
+
+/* 券头 */
+.voucher-card { margin: 24rpx; padding: 40rpx 36rpx; border-radius: 24rpx;
+  background: linear-gradient(135deg, #5a9367 0%, #3f7a51 100%); color: #fff; box-shadow: 0 8rpx 24rpx rgba(63,122,81,0.25); }
+.voucher-brand { font-size: 24rpx; opacity: 0.9; }
+.voucher-name { font-size: 40rpx; font-weight: bold; margin: 12rpx 0 20rpx; }
+.voucher-meta { font-size: 30rpx; }
+.voucher-balance { display: flex; align-items: baseline; flex-wrap: wrap; }
+.bal-label { font-size: 24rpx; opacity: 0.85; margin-right: 12rpx; }
+.bal-value { font-size: 56rpx; font-weight: bold; }
+.bal-tip { font-size: 22rpx; opacity: 0.85; margin-left: 16rpx; }
+.voucher-hint { font-size: 22rpx; opacity: 0.85; margin-top: 20rpx; line-height: 1.5; }
+
+.section-title { font-size: 30rpx; font-weight: bold; color: #333; margin: 32rpx 24rpx 16rpx; }
+
+/* 商品型 */
+.product-hero { display: flex; margin: 0 24rpx; background: #fff; border-radius: 20rpx; overflow: hidden; }
+.hero-img { width: 220rpx; height: 220rpx; flex-shrink: 0; }
+.hero-info { padding: 24rpx; flex: 1; }
+.hero-name { font-size: 32rpx; font-weight: bold; color: #333; }
+.hero-sku { font-size: 26rpx; color: #7a8b7a; margin-top: 12rpx; }
+.hero-qty { font-size: 28rpx; color: #3f7a51; margin-top: 20rpx; }
+
+/* 充值卡型商品列表 */
+.product-list { margin: 0 24rpx; }
+.product-item { display: flex; align-items: center; background: #fff; border-radius: 16rpx; padding: 20rpx; margin-bottom: 16rpx; }
+.item-img { width: 120rpx; height: 120rpx; border-radius: 12rpx; flex-shrink: 0; }
+.item-info { flex: 1; padding: 0 20rpx; }
+.item-name { font-size: 28rpx; color: #333; }
+.item-price { font-size: 30rpx; color: #e07b53; font-weight: bold; margin-top: 12rpx; }
+.item-unit { font-size: 22rpx; color: #999; font-weight: normal; }
+.item-add { width: 56rpx; height: 56rpx; border-radius: 50%; background: #3f7a51; color: #fff; font-size: 40rpx; line-height: 52rpx; text-align: center; }
+.item-soldout { font-size: 24rpx; color: #999; }
+
+/* 券内购物袋 */
+.bag { margin: 24rpx; background: #fff; border-radius: 16rpx; padding: 24rpx; }
+.bag-title { font-size: 28rpx; font-weight: bold; color: #333; margin-bottom: 16rpx; }
+.bag-item { display: flex; align-items: center; justify-content: space-between; padding: 12rpx 0; }
+.bag-name { font-size: 26rpx; color: #555; flex: 1; }
+.bag-spec { color: #999; font-size: 22rpx; }
+.bag-ctrl { display: flex; align-items: center; }
+.qbtn { width: 48rpx; height: 48rpx; border-radius: 50%; background: #eef4ee; color: #3f7a51; text-align: center; line-height: 44rpx; font-size: 32rpx; }
+.qnum { min-width: 56rpx; text-align: center; font-size: 28rpx; }
+
+/* 底部栏 */
+.footer-bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: space-between;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom)); background: #fff; box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.06); }
+.footer-total { font-size: 26rpx; color: #333; }
+.footer-price { font-size: 36rpx; color: #e07b53; font-weight: bold; }
+.primary-btn { background: #3f7a51; color: #fff; font-size: 30rpx; font-weight: bold; border-radius: 44rpx; padding: 0 60rpx; height: 80rpx; line-height: 80rpx; }
+.primary-btn.disabled { background: #c5d3c5; }
+
+/* SKU 弹窗 */
+.sku-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: flex; align-items: flex-end; }
+.sku-panel { width: 100%; background: #fff; border-radius: 24rpx 24rpx 0 0; padding: 32rpx; padding-bottom: calc(32rpx + env(safe-area-inset-bottom)); }
+.sku-panel-title { font-size: 30rpx; font-weight: bold; margin-bottom: 24rpx; }
+.sku-opt { display: flex; justify-content: space-between; align-items: center; padding: 24rpx; border: 2rpx solid #eef4ee; border-radius: 12rpx; margin-bottom: 16rpx; font-size: 28rpx; }
+.sku-price { color: #e07b53; font-weight: bold; }

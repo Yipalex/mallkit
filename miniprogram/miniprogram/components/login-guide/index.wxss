@@ -1,0 +1,89 @@
+/* components/login-guide/index.wxss - 登录引导组件样式 */
+
+.login-guide-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx;
+}
+
+.login-guide-content {
+  width: 100%;
+  max-width: 560rpx;
+  background: white;
+  border-radius: 24rpx;
+  padding: 60rpx 48rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 关闭按钮 */
+.close-btn {
+  position: absolute;
+  top: 24rpx;
+  right: 24rpx;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: var(--color-text-hint);
+}
+
+/* 图标 */
+.login-icon {
+  font-size: 120rpx;
+  margin-bottom: 24rpx;
+}
+
+/* 标题 */
+.login-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 16rpx;
+}
+
+/* 说明 */
+.login-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 40rpx;
+}
+
+/* 登录按钮 */
+.btn-login {
+  width: 100%;
+  height: 88rpx;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-round);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(46, 125, 50, 0.3);
+  border: none;
+}
+
+.btn-login::after {
+  border: none;
+}
+
+.btn-icon {
+  font-size: 36rpx;
+  margin-right: 8rpx;
+}

@@ -1,0 +1,136 @@
+/* pages/help/index.wxss - 客服帮助 */
+
+.page { background: var(--color-bg); min-height: 100vh; position: relative; padding-top: 24rpx; padding-bottom: 60rpx; }
+
+/* 顶部浅绿渐晕 */
+.page-halo {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 444rpx;
+  background: linear-gradient(165deg, #E3F3DC, #F8FBF6);
+}
+
+/* ===== 玻璃在线客服卡 ===== */
+.cs-card {
+  position: relative;
+  margin: 32rpx 32rpx 0;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1rpx solid rgba(255, 255, 255, 0.95);
+  border-radius: 44rpx;
+  padding: 32rpx;
+  box-shadow: 0 20rpx 60rpx rgba(87, 141, 80, 0.12);
+  overflow: hidden;
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .cs-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(32rpx);
+    -webkit-backdrop-filter: blur(32rpx);
+  }
+}
+.cs-head { display: flex; align-items: center; gap: 20rpx; }
+.cs-avatar {
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary-bg);
+  background-size: 42rpx 42rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 13a8 8 0 0 1 16 0'/%3E%3Crect x='3' y='13' width='4' height='7' rx='2'/%3E%3Crect x='17' y='13' width='4' height='7' rx='2'/%3E%3C/svg%3E");
+  flex-shrink: 0;
+}
+.cs-info { flex: 1; display: flex; flex-direction: column; gap: 4rpx; }
+.cs-name { font-size: 30rpx; font-weight: 700; color: var(--color-text-primary); }
+.cs-status { font-size: 20rpx; color: var(--color-primary); }
+.cs-go {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-primary);
+  border-radius: 32rpx;
+  padding: 14rpx 36rpx;
+  box-shadow: 0 8rpx 24rpx rgba(92, 174, 82, 0.3);
+  flex-shrink: 0;
+}
+.cs-chips { display: flex; flex-wrap: wrap; gap: 14rpx; margin-top: 24rpx; }
+.cs-chip {
+  font-size: 22rpx;
+  color: var(--color-primary);
+  background: var(--color-white);
+  border: 1rpx solid rgba(92, 174, 82, 0.35);
+  border-radius: 28rpx;
+  padding: 10rpx 24rpx;
+}
+/* 透明覆盖 button：承载 open-type=contact */
+.cs-hit {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+.cs-hit::after { border: none; }
+
+/* ===== 通用区块卡 ===== */
+.section-card {
+  position: relative;
+  margin: 28rpx 32rpx 0;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 40rpx;
+  padding: 28rpx 32rpx;
+}
+.card-title { font-size: 28rpx; font-weight: 700; color: var(--color-text-primary); }
+
+/* 联系方式行 */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--color-divider);
+}
+.contact-row:last-child { border-bottom: none; }
+.row-icon {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 24rpx;
+  background-color: var(--color-primary-bg);
+  background-size: 34rpx 34rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+.icon-phone { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z'/%3E%3C/svg%3E"); }
+.icon-mail { background-color: var(--color-accent-bg); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E8963F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3 7 9 6 9-6'/%3E%3C/svg%3E"); }
+.icon-feedback { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z'/%3E%3C/svg%3E"); }
+.row-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4rpx; }
+.row-label { font-size: 25rpx; font-weight: 600; color: var(--color-text-primary); }
+.row-sub { font-size: 20rpx; color: var(--color-text-hint); }
+.row-arrow { font-size: 36rpx; color: var(--color-text-disabled); }
+
+/* ===== FAQ 手风琴 ===== */
+.faq-list { margin-top: 8rpx; }
+.faq-item { border-bottom: 1rpx solid var(--color-divider); }
+.faq-item:last-child { border-bottom: none; }
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 24rpx 0;
+}
+.faq-text { font-size: 25rpx; font-weight: 600; color: var(--color-text-light); }
+.faq-arrow { font-size: 24rpx; color: var(--color-text-disabled); transition: transform 0.2s; }
+.faq-arrow.expanded { transform: rotate(180deg); }
+.faq-answer { display: none; padding: 0 0 24rpx; }
+.faq-answer.show { display: block; }
+.faq-answer-text { font-size: 23rpx; color: var(--color-text-secondary); line-height: 1.7; }
+
+/* 意见反馈卡 */
+.feedback-card { display: flex; align-items: center; gap: 20rpx; }

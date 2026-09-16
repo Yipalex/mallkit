@@ -1,0 +1,232 @@
+/* pages/cart/index.wxss - 购物车 */
+
+/* 页面：底部预留 结算栏 + 悬浮玻璃底栏 两层高度 */
+.cart-page { background: var(--color-bg); padding-bottom: 340rpx; min-height: 100vh; box-sizing: border-box; }
+
+/* ===== 凑单提示条：浅橙圆角条 ===== */
+.coupon-bar {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin: 24rpx 32rpx 0;
+  padding: 18rpx 28rpx;
+  background: var(--color-accent-bg);
+  border-radius: 28rpx;
+}
+.coupon-bar-icon { font-size: 26rpx; }
+.coupon-bar-text { flex: 1; font-size: 23rpx; color: #B06F1E; }
+.coupon-bar-btn { font-size: 22rpx; font-weight: 700; color: var(--color-accent); flex-shrink: 0; }
+
+/* ===== 空状态 ===== */
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 160rpx 0 80rpx; }
+.empty-icon { font-size: 120rpx; margin-bottom: 24rpx; }
+.empty-text { color: var(--color-text-hint); margin-bottom: 40rpx; font-size: var(--font-size-base); }
+.go-shop {
+  padding: 14rpx 100rpx;
+  font-size: var(--font-size-lg);
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-round);
+}
+
+/* 页内标题：购物车 (N) + 清空 */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 40rpx 8rpx;
+}
+.cart-title { font-size: 40rpx; font-weight: 800; color: var(--color-text-primary); }
+.cart-title-count { font-size: 24rpx; color: var(--color-text-hint); font-weight: 400; }
+.topbar-clear { font-size: var(--font-size-sm); color: var(--color-text-hint); padding: 4rpx 0; }
+
+/* ===== 商品列表：白卡 + 细边框 + 36rpx 圆角 ===== */
+.cart-list { padding: 8rpx 32rpx 0; display: flex; flex-direction: column; gap: 20rpx; }
+
+/* 左滑容器 */
+.swipe-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 36rpx;
+}
+.swipe-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 160rpx;
+  background: var(--color-danger);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 36rpx;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+/* 未勾选整行降透明度 */
+.cart-item.dim { opacity: 0.6; }
+
+/* 圆形勾选框 */
+.checkbox {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 3rpx solid rgba(36, 52, 38, 0.2);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.checkbox.checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  position: relative;
+}
+.checkbox.checked::after {
+  content: '';
+  position: absolute;
+  left: 9rpx;
+  top: 4rpx;
+  width: 14rpx;
+  height: 22rpx;
+  border-right: 4rpx solid white;
+  border-bottom: 4rpx solid white;
+  transform: rotate(40deg);
+}
+
+/* 商品图 */
+.item-img {
+  width: 144rpx;
+  height: 144rpx;
+  border-radius: 24rpx;
+  background: var(--color-image-bg);
+  flex-shrink: 0;
+}
+
+/* 商品信息 */
+.item-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8rpx; }
+.item-name { font-size: 26rpx; font-weight: 600; color: var(--color-text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item-spec {
+  font-size: 20rpx;
+  color: var(--color-text-hint);
+  background: var(--color-image-bg);
+  border-radius: 12rpx;
+  padding: 4rpx 14rpx;
+  width: fit-content;
+}
+.item-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 4rpx; }
+.item-price { color: var(--color-accent); font-size: 30rpx; font-weight: 700; }
+.item-unit { font-size: 20rpx; color: var(--color-text-hint); font-weight: 400; }
+
+/* 数量控制：细边框胶囊步进器 */
+.qty-control {
+  display: flex;
+  align-items: center;
+  border: 1rpx solid rgba(36, 52, 38, 0.12);
+  border-radius: 28rpx;
+  overflow: hidden;
+}
+.qty-btn {
+  width: 52rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+}
+.qty-btn-min { color: var(--color-text-hint); }
+.qty-num { width: 52rpx; text-align: center; font-size: 24rpx; font-weight: 700; color: var(--color-text-primary); }
+
+/* ===== 为你推荐 ===== */
+.rec-section { margin: 32rpx 32rpx 0; }
+.rec-title { font-size: 26rpx; font-weight: 700; color: var(--color-text-primary); padding: 0 8rpx; }
+.rec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+.rec-card {
+  display: flex;
+  gap: 16rpx;
+  align-items: center;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 32rpx;
+  padding: 16rpx;
+  overflow: hidden;
+  min-width: 0;
+}
+.rec-img {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 20rpx;
+  background: var(--color-image-bg);
+  flex-shrink: 0;
+}
+.rec-info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6rpx; }
+.rec-name { font-size: 24rpx; font-weight: 600; color: var(--color-text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rec-price { font-size: 26rpx; font-weight: 700; color: var(--color-accent); }
+
+/* ===== 结算栏：玻璃卡片，落在玻璃底栏正上方 ===== */
+.checkout-bar {
+  position: fixed;
+  left: 32rpx;
+  right: 32rpx;
+  bottom: calc(200rpx + constant(safe-area-inset-bottom));
+  bottom: calc(200rpx + env(safe-area-inset-bottom));
+  z-index: 999;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 20rpx 20rpx 28rpx;
+}
+.select-all { display: flex; align-items: center; flex-shrink: 0; }
+.select-all-text { font-size: 22rpx; color: var(--color-text-light); margin-left: 12rpx; }
+/* 合计两行：金额 + 优惠/包邮说明 */
+.total-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 16rpx;
+  min-width: 0;
+}
+.total-line { display: flex; align-items: baseline; white-space: nowrap; }
+.total-label { font-size: 22rpx; color: var(--color-text-hint); }
+.total-price { font-size: 34rpx; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.total-sub { font-size: 19rpx; color: var(--color-text-hint); margin-top: 2rpx; white-space: nowrap; }
+/* 结算按钮：小胶囊（view 实现，固定宽度，不参与 flex 伸缩） */
+.btn-checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  font-weight: 700;
+  width: 212rpx;
+  min-width: 0;
+  padding: 0;
+  height: 76rpx;
+  flex-grow: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-btn);
+}

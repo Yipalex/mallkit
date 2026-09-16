@@ -1,0 +1,47 @@
+<!-- components/sku-picker - 列表页复用的规格选择浮层（复用 detail 弹窗 UI） -->
+<view class="sku-modal-mask" wx:if="{{show}}" bindtap="onClose">
+  <view class="sku-modal" catchtap="noop">
+    <!-- 顶部：选中组合的图/价/库存 -->
+    <view class="sku-modal-header">
+      <image class="sku-modal-img" src="{{matchedSku.image || product.mainImage}}" mode="aspectFill" />
+      <view class="sku-modal-head-info">
+        <view class="sku-modal-price">
+          <text class="sku-price-symbol">¥</text>
+          <text class="sku-price-value">{{matchedSku ? matchedSku.price : skuMinPrice}}</text>
+          <text class="sku-price-unit" wx:if="{{!matchedSku}}"> 起</text>
+        </view>
+        <text class="sku-modal-stock" wx:if="{{matchedSku}}">库存 {{matchedSku.stock}}</text>
+        <text class="sku-modal-selected">{{matchedSku ? matchedSku.specText : '请选择规格'}}</text>
+      </view>
+      <text class="sku-modal-close" catchtap="onClose">×</text>
+    </view>
+
+    <!-- 各维度选项 -->
+    <scroll-view scroll-y class="sku-modal-body">
+      <view class="sku-group" wx:for="{{product.specGroups}}" wx:for-item="group" wx:for-index="gi" wx:key="name">
+        <text class="sku-group-name">{{group.name}}</text>
+        <view class="sku-options">
+          <view wx:for="{{group.options}}" wx:for-item="opt" wx:for-index="oi" wx:key="*this"
+            class="sku-option {{selectedOptionIndexes[gi] === oi ? 'active' : ''}}"
+            data-gi="{{gi}}" data-oi="{{oi}}" bindtap="onSelectSkuOption">{{opt}}</view>
+        </view>
+      </view>
+
+      <!-- 数量 -->
+      <view class="sku-qty-row">
+        <text class="sku-group-name">数量</text>
+        <view class="qty-control">
+          <view class="qty-btn {{quantity <= 1 ? 'qty-btn-min' : ''}}" data-action="minus" bindtap="onQuantityChange">−</view>
+          <text class="qty-num">{{quantity}}</text>
+          <view class="qty-btn" data-action="plus" bindtap="onQuantityChange">+</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 底部确定按钮：未选齐/售罄则置灰 -->
+    <view class="sku-modal-footer">
+      <button wx:if="{{matchedSku && matchedSku.stock <= 0}}" class="sku-confirm-btn disabled">已售罄</button>
+      <button wx:else class="sku-confirm-btn" bindtap="onConfirm">确定</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,174 @@
+/* pages/order/detail.wxss - V2 */
+.loading-page { height: 100vh; display: flex; align-items: center; justify-content: center; }
+.page { background: var(--color-bg); padding-bottom: 160rpx; }
+
+/* 状态横幅 */
+.status-banner {
+  padding: 48rpx 32rpx;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+.status-banner.pending_payment { background: var(--color-warning, #FF9800); }
+.status-banner.paid { background: var(--color-primary); }
+.status-banner.shipped { background: #2196F3; }
+.status-banner.completed { background: #757575; }
+.status-banner.cancelled { background: #BDBDBD; }
+.status-icon { font-size: 72rpx; }
+.status-text { font-size: var(--font-size-xl); font-weight: 700; }
+.status-sub { font-size: var(--font-size-sm); opacity: 0.9; margin-top: 4rpx; }
+
+/* 通用卡片 */
+.section {
+  background: var(--color-white);
+  margin: 16rpx;
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-sm);
+  padding: 24rpx;
+}
+.section-title {
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 20rpx;
+  padding-left: 16rpx;
+  border-left: 6rpx solid var(--color-primary);
+}
+
+/* 快递 */
+.tracking-row { display: flex; align-items: center; gap: 12rpx; }
+.tracking-label { font-size: var(--font-size-sm); color: var(--color-text-secondary); flex-shrink: 0; }
+.tracking-num { flex: 1; font-size: var(--font-size-sm); color: var(--color-text-primary); }
+.btn-copy-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: white;
+  font-size: var(--font-size-sm);
+  padding: 8rpx 20rpx;
+  border-radius: var(--border-radius-round);
+  flex-shrink: 0;
+  height: 56rpx;
+}
+
+.btn-track-query {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f7f0;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  padding: 8rpx 20rpx;
+  border-radius: var(--border-radius-round);
+  border: 1rpx solid var(--color-primary);
+  height: 56rpx;
+}
+
+/* 多包裹块间分隔 */
+.tracking-pkg-block { padding-bottom: 16rpx; margin-bottom: 16rpx; border-bottom: 1rpx solid #f0f0f0; }
+.tracking-pkg-block:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+/* 地址 */
+.addr-row { display: flex; gap: 16rpx; align-items: flex-start; }
+.addr-icon { font-size: 36rpx; flex-shrink: 0; margin-top: 4rpx; }
+.addr-info { flex: 1; }
+.addr-top { display: flex; align-items: center; gap: 20rpx; margin-bottom: 8rpx; }
+.addr-name { font-size: var(--font-size-base); font-weight: 700; color: var(--color-text-primary); }
+.addr-phone { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.addr-detail { display: block; font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6; }
+
+/* 商品行 */
+.order-product { display: flex; align-items: center; gap: 16rpx; padding: 16rpx 0; border-bottom: 1rpx solid var(--color-border); }
+.order-product:last-child { border-bottom: none; }
+.product-img { width: 100rpx; height: 100rpx; border-radius: var(--border-radius-sm); flex-shrink: 0; }
+.product-info { flex: 1; min-width: 0; }
+.product-name { display: block; font-size: var(--font-size-sm); color: var(--color-text-primary); margin-bottom: 8rpx; }
+.product-qty { font-size: var(--font-size-xs); color: var(--color-text-hint); }
+.product-total { font-size: var(--font-size-base); font-weight: 700; color: var(--color-accent); flex-shrink: 0; }
+
+/* 费用明细 */
+.fee-row { display: flex; justify-content: space-between; align-items: center; padding: 10rpx 0; }
+.fee-label { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.fee-value { font-size: var(--font-size-sm); color: var(--color-text-primary); }
+.fee-value.free-ship { color: var(--color-primary); }
+.fee-value.discount { color: var(--color-accent); }
+.fee-divider { height: 1rpx; background: var(--color-border); margin: 8rpx 0; }
+.total-row { padding-top: 16rpx; }
+.fee-label-bold { font-size: var(--font-size-base); font-weight: 700; color: var(--color-text-primary); }
+.fee-total { font-size: var(--font-size-xl); font-weight: 700; color: var(--color-accent); }
+
+/* 订单信息 */
+.info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 12rpx 0; border-bottom: 1rpx solid var(--color-border); }
+.info-row:last-child { border-bottom: none; }
+.info-label { font-size: var(--font-size-sm); color: var(--color-text-secondary); flex-shrink: 0; margin-right: 16rpx; }
+.info-value { font-size: var(--font-size-sm); color: var(--color-text-primary); text-align: right; flex: 1; }
+.info-value-small { font-size: 20rpx; }
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--color-white);
+  display: flex;
+  gap: 16rpx;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.08);
+}
+.btn-secondary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--border-radius-round);
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+}
+.btn-secondary::after { border: none; }
+.btn-pay {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-round);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+.btn-pay::after { border: none; }
+.btn-refund {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  border-radius: var(--border-radius-round);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  background: var(--color-white);
+  color: #e53935;
+  border: 2rpx solid #e53935;
+}
+.btn-refund::after { border: none; }
+.btn-disabled {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  border-radius: var(--border-radius-round);
+  font-size: var(--font-size-base);
+  background: #f5f5f5;
+  color: #999;
+}
+.btn-disabled::after { border: none; }
+.status-banner.refund_pending { background: linear-gradient(135deg, #ff9800, #f57c00); }
+.status-banner.refunded { background: linear-gradient(135deg, #6FC363, #4A9A42); }

@@ -1,0 +1,78 @@
+<!--pages/privacy/privacy.wxml-->
+<view class="privacy-container">
+  <view class="header">
+    <text class="title">隐私政策</text>
+    <text class="update-time">更新日期：2024年4月1日</text>
+  </view>
+
+  <view class="content">
+    <view class="section">
+      <text class="section-title">引言</text>
+      <text class="text">欢迎使用"示例商城"小程序（以下简称"本小程序"）。我们深知个人信息对您的重要性，并会尽全力保护您的个人信息安全可靠。我们致力于维持您对我们的信任，恪守以下原则保护您的个人信息：权责一致原则、目的明确原则、选择同意原则、最少够用原则、确保安全原则、主体参与原则、公开透明原则等。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">一、我们如何收集和使用您的个人信息</text>
+      <view class="sub-section">
+        <text class="sub-title">1.1 账户注册与登录</text>
+        <text class="text">当您注册和使用本小程序时，我们需要收集您的微信昵称、头像等基本信息，用于创建您的账户。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">1.2 商品交易</text>
+        <text class="text">当您购买商品时，我们需要收集您的收货地址（姓名、电话、详细地址），用于商品配送。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">1.3 支付功能</text>
+        <text class="text">支付功能由微信支付提供，我们不会收集您的银行卡等支付信息。</text>
+      </view>
+      <view class="sub-section">
+        <text class="sub-title">1.4 客户服务</text>
+        <text class="text">当您联系客服时，我们可能需要收集您的沟通记录，用于解决问题。</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">二、我们如何共享、转让、公开披露您的个人信息</text>
+      <text class="text">我们不会向其他任何公司、组织和个人分享您的个人信息，但以下情况除外：</text>
+      <text class="text">1. 在获取明确同意的情况下分享；</text>
+      <text class="text">2. 根据法律法规、诉讼、政府机关要求；</text>
+      <text class="text">3. 在涉及合并、收购或破产清算时；</text>
+      <text class="text">4. 向物流服务商提供必要信息以完成商品配送。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">三、我们如何保护您的个人信息</text>
+      <text class="text">我们采取以下安全措施保护您的个人信息：</text>
+      <text class="text">1. 数据传输使用HTTPS加密；</text>
+      <text class="text">2. 敏感信息进行加密存储；</text>
+      <text class="text">3. 严格控制数据访问权限；</text>
+      <text class="text">4. 定期进行安全审计。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">四、您的权利</text>
+      <text class="text">您拥有以下权利：</text>
+      <text class="text">1. 访问和获取您的个人信息；</text>
+      <text class="text">2. 更正或补充您的个人信息；</text>
+      <text class="text">3. 删除您的个人信息；</text>
+      <text class="text">4. 注销您的账户。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">五、未成年人的个人信息保护</text>
+      <text class="text">我们的服务主要面向成年人。如果您是未成年人，请在监护人的指导下使用我们的服务。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">六、隐私政策的更新</text>
+      <text class="text">我们可能适时修订本隐私政策，修订后的政策将在小程序内公布。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">七、联系我们</text>
+      <text class="text">如您对本隐私政策有任何疑问，请通过以下方式联系我们：</text>
+      <text class="text">客服电话：400-000-0000</text>
+      <text class="text">电子邮箱：support@example.com</text>
+    </view>
+  </view>
+</view>

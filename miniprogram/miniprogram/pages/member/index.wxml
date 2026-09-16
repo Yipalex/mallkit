@@ -1,0 +1,105 @@
+<!-- pages/member/index.wxml - 会员中心 -->
+<view class="page">
+
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 登录规范：本页为 tabBar 页，不做进入即拦截的登录引导，
+       未登录也可浏览等级权益等公开内容 -->
+
+  <!-- 页内标题（左上角黑体，与卡片留出间距） -->
+  <view class="page-title">会员中心</view>
+
+  <!-- 会员玻璃卡 -->
+  <view wx:if="{{memberInfo}}" class="member-card glass">
+    <view class="member-row" bindtap="onGoProfile">
+      <view class="member-avatar">{{avatarChar}}</view>
+      <view class="member-meta">
+        <view class="member-name-row">
+          <text class="member-name">{{userInfo.nickName || '园友'}}</text>
+          <view class="member-badge lv-{{memberInfo.level}}">{{memberInfo.name}}</view>
+        </view>
+        <text class="member-sub">{{memberInfo.discount < 1 ? '会员价全场 ' + memberInfo.discount * 10 + ' 折' : '购物赚积分，升级享折扣'}}</text>
+      </view>
+      <view class="member-arrow">›</view>
+    </view>
+
+    <!-- 成长值进度（满级也显示满格进度条） -->
+    <view class="growth">
+      <view class="growth-head">
+        <text>{{growthLeft}}</text>
+        <text wx:if="{{growthDiff > 0}}">再获 <text class="growth-num">{{growthDiff}}</text> 分升级{{nextLevelName}}</text>
+      </view>
+      <view class="growth-bar">
+        <view class="growth-fill" style="width: {{growthPercent}}%"></view>
+      </view>
+      <view class="growth-levels">
+        <text>{{memberInfo.name}}</text>
+        <text wx:if="{{nextLevelName}}">{{nextLevelName}}</text>
+      </view>
+    </view>
+
+    <!-- 三栏数据：积分 / 优惠券 / 余额 -->
+    <view class="member-stats">
+      <view class="stat-item">
+        <text class="stat-value">{{memberInfo.points || 0}}</text>
+        <text class="stat-label">积分</text>
+      </view>
+      <view class="stat-item stat-mid">
+        <text class="stat-value">{{couponCount}}</text>
+        <text class="stat-label">优惠券</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">¥{{balance}}</text>
+        <text class="stat-label">余额</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 2x2 -->
+  <view class="quick-grid">
+    <view class="quick-item" bindtap="onGoCheckin">
+      <view class="quick-icon bg-green icon-calendar"></view>
+      <view class="quick-meta"><text class="quick-title">每日签到</text><text class="quick-sub">{{checkinSub}}</text></view>
+    </view>
+    <view class="quick-item" bindtap="onGoGift">
+      <view class="quick-icon bg-orange icon-gift"></view>
+      <view class="quick-meta"><text class="quick-title">积分礼品</text><text class="quick-sub">{{giftSub}}</text></view>
+    </view>
+    <view class="quick-item" bindtap="onGoCoupons">
+      <view class="quick-icon bg-orange icon-ticket"></view>
+      <view class="quick-meta"><text class="quick-title">领券中心</text><text class="quick-sub">{{couponSub}}</text></view>
+    </view>
+    <view class="quick-item" bindtap="onGoRecharge">
+      <view class="quick-icon bg-green icon-card"></view>
+      <view class="quick-meta"><text class="quick-title">账户充值</text><text class="quick-sub">充值送积分</text></view>
+    </view>
+  </view>
+
+  <!-- 会员专属权益（只展示当前会员享有的权益） -->
+  <view class="benefit-card">
+    <text class="section-title">会员专属权益</text>
+    <view class="benefit-grid">
+      <view class="benefit-item">
+        <view class="benefit-icon icon-discount"></view>
+        <text class="benefit-name">{{discountPerk}}</text>
+      </view>
+      <view class="benefit-item">
+        <view class="benefit-icon icon-freeship"></view>
+        <text class="benefit-name">免运费</text>
+      </view>
+      <view class="benefit-item">
+        <view class="benefit-icon icon-fast"></view>
+        <text class="benefit-name">优先发货</text>
+      </view>
+      <view class="benefit-item">
+        <view class="benefit-icon icon-birthday"></view>
+        <text class="benefit-name">生日礼</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 悬浮玻璃底栏占位 -->
+  <view class="tabbar-space"></view>
+
+</view>

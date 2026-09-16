@@ -1,0 +1,120 @@
+/* 悬浮毛玻璃胶囊底栏 */
+
+.tabbar-wrap {
+  position: fixed;
+  left: 32rpx;
+  right: 32rpx;
+  bottom: 32rpx;
+  z-index: 1000;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 玻璃胶囊：不支持 backdrop-filter 的机型降级为高不透明白底 */
+.glass-bar {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1rpx solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 24rpx 64rpx rgba(36, 52, 38, 0.14);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass-bar {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(40rpx);
+    -webkit-backdrop-filter: blur(40rpx);
+  }
+}
+
+.tabbar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-radius: 56rpx;
+  padding: 20rpx 16rpx 24rpx;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.tab-icon-box {
+  position: relative;
+  width: 76rpx;
+  height: 52rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 购物车角标 */
+.tab-badge {
+  position: absolute;
+  top: 0;
+  right: 6rpx;
+  min-width: 28rpx;
+  height: 28rpx;
+  padding: 0 6rpx;
+  box-sizing: border-box;
+  background: #FF3B30;
+  color: #fff;
+  font-size: 18rpx;
+  line-height: 28rpx;
+  text-align: center;
+  border-radius: 14rpx;
+  border: 2rpx solid #fff;
+}
+
+.tab-icon-box.active {
+  background: rgba(92, 174, 82, 0.14);
+}
+
+.tab-icon {
+  width: 40rpx;
+  height: 40rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.tab-label {
+  font-size: 20rpx;
+  color: #9FB0A1;
+  line-height: 1;
+}
+
+.tab-label.active {
+  color: #5CAE52;
+  font-weight: 700;
+}
+
+/* ===== 线性 SVG 图标（1.5px stroke，data-url 内联） ===== */
+
+.icon-home {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239FB0A1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 11 12 4l8 7v8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19v-8z'/%3E%3Cpath d='M9.5 20.5v-6h5v6'/%3E%3C/svg%3E");
+}
+.icon-home-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 11 12 4l8 7v8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19v-8z'/%3E%3Cpath d='M9.5 20.5v-6h5v6'/%3E%3C/svg%3E");
+}
+
+.icon-member {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239FB0A1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5 7.5 11 12 5l4.5 6L20 8.5l-1.4 8.3a2 2 0 0 1-2 1.7H7.4a2 2 0 0 1-2-1.7L4 8.5z'/%3E%3C/svg%3E");
+}
+.icon-member-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5 7.5 11 12 5l4.5 6L20 8.5l-1.4 8.3a2 2 0 0 1-2 1.7H7.4a2 2 0 0 1-2-1.7L4 8.5z'/%3E%3C/svg%3E");
+}
+
+.icon-cart {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239FB0A1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4h2l2.5 12.5a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6'/%3E%3Ccircle cx='10' cy='21' r='1'/%3E%3Ccircle cx='17.5' cy='21' r='1'/%3E%3C/svg%3E");
+}
+.icon-cart-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4h2l2.5 12.5a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6'/%3E%3Ccircle cx='10' cy='21' r='1'/%3E%3Ccircle cx='17.5' cy='21' r='1'/%3E%3C/svg%3E");
+}
+
+.icon-my {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239FB0A1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4.5 20.5a7.5 7.5 0 0 1 15 0'/%3E%3C/svg%3E");
+}
+.icon-my-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4.5 20.5a7.5 7.5 0 0 1 15 0'/%3E%3C/svg%3E");
+}

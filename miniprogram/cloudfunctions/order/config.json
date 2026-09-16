@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "openapi": [
+      "security.uploadShippingInfo",
+      "security.traceWaybill"
+    ]
+  }
+}

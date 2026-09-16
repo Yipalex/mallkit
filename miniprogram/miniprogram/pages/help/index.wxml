@@ -1,0 +1,114 @@
+<!-- pages/help/index.wxml - 客服帮助 -->
+<view class="page">
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 玻璃在线客服卡（整卡点击拉起微信客服会话） -->
+  <view class="cs-card">
+    <view class="cs-head">
+      <view class="cs-avatar"></view>
+      <view class="cs-info">
+        <text class="cs-name">在线客服</text>
+        <text class="cs-status">● 在线 · 点击开始会话</text>
+      </view>
+      <view class="cs-go">咨询</view>
+    </view>
+    <!-- 快捷问题（点击同样进入客服会话） -->
+    <view class="cs-chips">
+      <text class="cs-chip">查询物流</text>
+      <text class="cs-chip">商品破损</text>
+      <text class="cs-chip">修改地址</text>
+      <text class="cs-chip">售后退款</text>
+    </view>
+    <!-- 透明 button 铺满整卡，承载 open-type=contact -->
+    <button class="cs-hit" open-type="contact"
+      show-message-card="true"
+      send-message-title="在线客服咨询"
+      send-message-path="pages/index/index"
+      send-message-img=""></button>
+  </view>
+
+  <!-- 其他联系方式 -->
+  <view class="section-card">
+    <text class="card-title">其他联系方式</text>
+    <view class="contact-row" bindtap="onCallService">
+      <view class="row-icon icon-phone"></view>
+      <view class="row-info">
+        <text class="row-label">客服热线 400-000-0000</text>
+        <text class="row-sub">服务时间 08:00 - 22:00</text>
+      </view>
+      <text class="row-arrow">›</text>
+    </view>
+    <view class="contact-row" bindtap="onSendEmail">
+      <view class="row-icon icon-mail"></view>
+      <view class="row-info">
+        <text class="row-label">电子邮箱 support@example.com</text>
+        <text class="row-sub">24 小时内回复</text>
+      </view>
+      <text class="row-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 常见问题 -->
+  <view class="section-card">
+    <text class="card-title">常见问题</text>
+    <view class="faq-list">
+      <view class="faq-item" bindtap="onToggleFaq" data-index="0">
+        <view class="faq-question">
+          <text class="faq-text">如何下单购买商品？</text>
+          <text class="faq-arrow {{faqExpanded[0] ? 'expanded' : ''}}">▾</text>
+        </view>
+        <view class="faq-answer {{faqExpanded[0] ? 'show' : ''}}">
+          <text class="faq-answer-text">在首页浏览商品，点击商品进入详情页，选择规格和数量后，点击"加入购物车"或"立即购买"即可完成下单。</text>
+        </view>
+      </view>
+      <view class="faq-item" bindtap="onToggleFaq" data-index="1">
+        <view class="faq-question">
+          <text class="faq-text">支付方式有哪些？</text>
+          <text class="faq-arrow {{faqExpanded[1] ? 'expanded' : ''}}">▾</text>
+        </view>
+        <view class="faq-answer {{faqExpanded[1] ? 'show' : ''}}">
+          <text class="faq-answer-text">目前支持微信支付。下单后请尽快完成支付，未支付的订单可在「我的订单-待付款」里继续支付或取消。</text>
+        </view>
+      </view>
+      <view class="faq-item" bindtap="onToggleFaq" data-index="2">
+        <view class="faq-question">
+          <text class="faq-text">配送范围和时间？</text>
+          <text class="faq-arrow {{faqExpanded[2] ? 'expanded' : ''}}">▾</text>
+        </view>
+        <view class="faq-answer {{faqExpanded[2] ? 'show' : ''}}">
+          <text class="faq-answer-text">我们支持本地配送，一般在订单确认后24-48小时内送达。具体配送范围请在结算时查看。</text>
+        </view>
+      </view>
+      <view class="faq-item" bindtap="onToggleFaq" data-index="3">
+        <view class="faq-question">
+          <text class="faq-text">如何申请退款？</text>
+          <text class="faq-arrow {{faqExpanded[3] ? 'expanded' : ''}}">▾</text>
+        </view>
+        <view class="faq-answer {{faqExpanded[3] ? 'show' : ''}}">
+          <text class="faq-answer-text">如商品存在质量问题，可在收货后24小时内联系客服申请退款。特殊商品一旦拆封或使用，不支持退货。</text>
+        </view>
+      </view>
+      <view class="faq-item" bindtap="onToggleFaq" data-index="4">
+        <view class="faq-question">
+          <text class="faq-text">积分如何获取和使用？</text>
+          <text class="faq-arrow {{faqExpanded[4] ? 'expanded' : ''}}">▾</text>
+        </view>
+        <view class="faq-answer {{faqExpanded[4] ? 'show' : ''}}">
+          <text class="faq-answer-text">您可以通过每日签到、充值等方式获取积分。积分可以在"积分礼品"页面兑换商品。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 意见反馈 -->
+  <view class="section-card feedback-card" bindtap="onFeedback">
+    <view class="row-icon icon-feedback"></view>
+    <view class="row-info">
+      <text class="row-label">意见反馈</text>
+      <text class="row-sub">您的意见是我们进步的动力</text>
+    </view>
+    <text class="row-arrow">›</text>
+  </view>
+
+</view>

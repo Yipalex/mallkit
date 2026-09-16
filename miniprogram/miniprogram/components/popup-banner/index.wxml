@@ -1,0 +1,19 @@
+<view class="popup-mask" wx:if="{{show && popup}}" bindtap="onClose">
+  <view class="popup-wrap" catchtap="noop">
+
+    <!-- 整张图直接浮在遮罩上（图片本身即完整设计） -->
+    <image
+      wx:if="{{popup.imageUrl}}"
+      class="popup-main-img"
+      src="{{popup.imageUrl}}"
+      mode="widthFix"
+      bindtap="onTap"
+    />
+
+    <!-- 关闭按钮（图片下方，参考图样式） -->
+    <view class="popup-close" catchtap="onClose">
+      <text class="popup-close-icon">✕</text>
+    </view>
+
+  </view>
+</view>

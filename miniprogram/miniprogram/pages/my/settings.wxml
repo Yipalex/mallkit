@@ -1,0 +1,84 @@
+<!-- pages/my/settings.wxml - 设置 -->
+<view class="page">
+
+  <!-- 资料卡：微信官方头像昵称填写能力（chooseAvatar + type="nickname"），
+       点头像可选微信头像/相册，昵称直接编辑，失焦即保存 -->
+  <view class="profile-card">
+    <button
+      class="profile-avatar-btn"
+      open-type="chooseAvatar"
+      bindchooseavatar="onChooseAvatar"
+    >
+      <image wx:if="{{avatarUrl}}" class="profile-avatar-img" src="{{avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="profile-avatar">{{avatarChar}}</view>
+    </button>
+    <view class="profile-info">
+      <input
+        class="profile-name-input"
+        type="nickname"
+        value="{{nickname}}"
+        placeholder="点击填写昵称"
+        confirm-type="done"
+        bindblur="onNicknameBlur"
+        bindconfirm="onNicknameBlur"
+      />
+      <text class="profile-sub">点击头像或昵称可修改</text>
+    </view>
+  </view>
+
+  <!-- 账号信息组 -->
+  <view class="menu-card">
+    <view class="menu-item" bindtap="onEditAddress">
+      <view class="menu-icon icon-address"></view>
+      <text class="menu-label">收货地址管理</text>
+      <text wx:if="{{savedAddress}}" class="menu-value">{{savedAddress}}</text>
+      <text class="row-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="onEditPhone">
+      <view class="menu-icon icon-phone"></view>
+      <text class="menu-label">手机号码</text>
+      <text class="menu-value">{{phone}}</text>
+      <text class="row-arrow">›</text>
+    </view>
+    <!-- 消息通知开关（原生 switch，catchtap 拦截避免冒泡触发整行） -->
+    <view class="menu-item" catchtap="noop">
+      <view class="menu-icon icon-bell"></view>
+      <text class="menu-label">消息通知</text>
+      <switch class="menu-switch" checked="{{msgNotify}}" color="#5CAE52" bindchange="onToggleNotify" />
+    </view>
+  </view>
+
+  <!-- 帮助与协议组 -->
+  <view class="menu-card">
+    <view class="menu-item" bindtap="onGoHelp">
+      <view class="menu-icon icon-help"></view>
+      <text class="menu-label">帮助与反馈</text>
+      <text class="row-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="onPrivacy">
+      <view class="menu-icon icon-privacy"></view>
+      <text class="menu-label">隐私政策</text>
+      <text class="row-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="onTerms">
+      <view class="menu-icon icon-terms"></view>
+      <text class="menu-label">用户协议</text>
+      <text class="row-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="onAbout">
+      <view class="menu-icon icon-about"></view>
+      <text class="menu-label">关于我们</text>
+      <text class="row-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-btn" wx:if="{{hasUserAuth}}" bindtap="onLogout">退出登录</view>
+
+  <!-- 底部 logo + 标语 -->
+  <view class="footer-brand">
+    <image class="footer-logo" src="/assets/logo-brush.png" mode="heightFix" />
+    <text class="footer-slogan-text">优选好物 · 送到家</text>
+  </view>
+
+</view>

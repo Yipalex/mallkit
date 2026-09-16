@@ -1,0 +1,67 @@
+<!-- pages/coupons/index.wxml - 领券中心 -->
+
+<view class="page">
+
+  <!-- 登录规范：券列表属公开内容，进入不拦截；领取时由云函数按 openid 鉴权 -->
+
+  <!-- 状态胶囊 tab -->
+  <view class="tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="*this"
+      class="tab {{activeTab === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="onTabChange"
+    >{{item}}</view>
+  </view>
+
+  <!-- 优惠券列表 -->
+  <view class="coupon-list">
+    <view
+      wx:for="{{coupons}}"
+      wx:key="_id"
+      class="coupon-card {{item.dim ? 'dim' : ''}}"
+    >
+      <!-- 新人角标 -->
+      <view wx:if="{{item.isNew}}" class="corner-badge">新人专享</view>
+
+      <!-- 左侧票根：金额 + 门槛 -->
+      <view class="stub {{item.isNew ? 'stub-orange' : 'stub-green'}}">
+        <text class="stub-value">{{item.valueText}}</text>
+        <text class="stub-cond">{{item.condition}}</text>
+      </view>
+
+      <!-- 中间信息 -->
+      <view class="coupon-info">
+        <text class="coupon-title">{{item.title}}</text>
+        <text class="coupon-desc" wx:if="{{item.description}}">{{item.description}}</text>
+        <text class="coupon-valid" wx:if="{{item.validText}}">{{item.validText}}</text>
+      </view>
+
+      <!-- 右侧按钮 -->
+      <view class="coupon-action">
+        <view wx:if="{{activeTab === 0 && !item.isReceived}}" class="btn-get {{item.isNew ? 'btn-get-orange' : ''}}" catchtap="onReceiveCoupon" data-id="{{item._id}}">领取</view>
+        <view wx:elif="{{activeTab === 0 && item.isReceived}}" class="btn-got">已领取</view>
+        <view wx:elif="{{activeTab === 1}}" class="btn-get" catchtap="onGoUse">去使用</view>
+        <view wx:else class="btn-got">{{item.invalidText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!isLoading && coupons.length === 0}}" class="empty-state">
+    <text class="empty-icon">🎫</text>
+    <text class="empty-text">{{emptyText}}</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{isLoading}}" class="loading-state">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 底部提示条 -->
+  <view class="tip-bar">
+    <text class="tip-text">ⓘ 优惠券结算时自动推荐最优组合，无需手动挑选</text>
+  </view>
+
+</view>

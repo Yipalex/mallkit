@@ -1,0 +1,67 @@
+<!-- pages/login/index.wxml - 登录引导页面 -->
+<view class="login-page">
+
+  <!-- 顶部装饰图案 -->
+  <view class="login-decoration">
+    <text class="decoration-icon">✨</text>
+  </view>
+
+  <!-- 主体内容 -->
+  <view class="login-content">
+    <!-- Logo区域 -->
+    <view class="login-logo">
+      <text class="logo-text">示例商城</text>
+      <text class="logo-subtitle">优选商城 · 品质生活</text>
+    </view>
+
+    <!-- 插图 -->
+    <view class="login-illustration">
+      <text class="illustration-icon">🛍️</text>
+      <text class="illustration-text">登录后享受更多服务</text>
+    </view>
+
+    <!-- 登录说明 -->
+    <view class="login-tips">
+      <view class="tip-item">
+        <text class="tip-icon">✓</text>
+        <text class="tip-text">查看订单状态</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">✓</text>
+        <text class="tip-text">享受会员折扣</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">✓</text>
+        <text class="tip-text">领取优惠券</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">✓</text>
+        <text class="tip-text">积分兑换礼品</text>
+      </view>
+    </view>
+
+    <!-- 登录按钮 -->
+    <view class="login-actions">
+
+      <!-- 隐私政策主动勾选（合规要求：不得默认同意，用户必须主动勾选） -->
+      <view class="agree-row" bindtap="onToggleAgree">
+        <view class="agree-checkbox {{agreeChecked ? 'checked' : ''}}">
+          <text wx:if="{{agreeChecked}}" class="agree-checkmark">✓</text>
+        </view>
+        <text class="agree-text">我已阅读并同意<text class="link" catchtap="onPrivacyTap">《隐私政策》</text>和<text class="link" catchtap="onTermsTap">《服务条款》</text></text>
+      </view>
+
+      <button
+        class="btn-wechat-login"
+        bindtap="onWechatLogin"
+        loading="{{isLogging}}"
+        disabled="{{isLogging}}"
+      >
+        <text class="btn-icon">💚</text>
+        <text>微信授权登录</text>
+      </button>
+
+    </view>
+  </view>
+
+</view>

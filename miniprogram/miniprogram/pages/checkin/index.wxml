@@ -1,0 +1,71 @@
+<!-- pages/checkin/index.wxml - 每日签到 -->
+<view class="page">
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 玻璃签到卡 -->
+  <view class="checkin-card">
+    <text class="streak-label">已连续签到</text>
+    <view class="streak-line">
+      <text class="streak-num">{{streak}}</text>
+      <text class="streak-unit">天</text>
+    </view>
+    <text class="streak-tip">{{tipText}}</text>
+
+    <!-- 7 格连签进度 -->
+    <view class="cells-row">
+      <view
+        wx:for="{{cells}}"
+        wx:key="index"
+        class="cell cell-{{item.state}}"
+      >
+        <text class="cell-day">{{item.label}}</text>
+        <view wx:if="{{item.state === 'done'}}" class="cell-check"></view>
+        <view wx:elif="{{item.state === 'day7'}}" class="cell-gift"></view>
+        <text wx:else class="cell-points">+{{item.points}}</text>
+      </view>
+    </view>
+
+    <!-- 签到按钮 -->
+    <view
+      class="btn-checkin {{todayChecked ? 'done' : ''}}"
+      bindtap="onCheckin"
+    >{{btnText}}</view>
+
+    <text class="points-now">当前积分 {{points}}</text>
+  </view>
+
+  <!-- 做任务卡（真实入口，不写虚假积分承诺） -->
+  <view class="task-card">
+    <text class="task-title">做任务 · 赚积分</text>
+    <view class="task-row" bindtap="onGoGift">
+      <view class="task-icon task-icon-green icon-gift"></view>
+      <view class="task-info">
+        <text class="task-name">积分兑礼品</text>
+        <text class="task-sub">用积分免费换新鲜好物</text>
+      </view>
+      <view class="task-btn task-btn-line">去兑换</view>
+    </view>
+    <view class="task-row" bindtap="onGoReview">
+      <view class="task-icon task-icon-orange icon-review"></view>
+      <view class="task-info">
+        <text class="task-name">评价晒单</text>
+        <text class="task-sub">+20 积分 / 单</text>
+      </view>
+      <view class="task-btn task-btn-line">去完成</view>
+    </view>
+    <view class="task-row" bindtap="onGoShop">
+      <view class="task-icon task-icon-green icon-shop"></view>
+      <view class="task-info">
+        <text class="task-name">下单购物</text>
+        <text class="task-sub">应季好物 · 每日上新</text>
+      </view>
+      <view class="task-btn task-btn-solid">去逛逛</view>
+    </view>
+  </view>
+
+  <!-- 规则说明条 -->
+  <view class="rule-bar">
+    <text class="rule-text">连签奖励：第1-3天 +5 · 第4-6天 +10 · 第7天 +30，断签后重新计算</text>
+  </view>
+</view>

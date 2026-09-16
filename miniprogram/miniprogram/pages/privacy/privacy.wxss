@@ -1,0 +1,69 @@
+/* pages/privacy/privacy.wxss */
+.privacy-container {
+  padding: 30rpx;
+  background-color: #f5f4f1;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #5CAE52;
+  margin-bottom: 12rpx;
+}
+
+.update-time {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.content {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+}
+
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.sub-section {
+  margin: 16rpx 0;
+  padding-left: 16rpx;
+}
+
+.sub-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8rpx;
+}
+
+.text {
+  display: block;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 12rpx;
+  text-align: justify;
+}

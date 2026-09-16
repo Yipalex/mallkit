@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "搜索",
+  "usingComponents": {
+    "product-card": "../../components/product-card/index",
+    "sku-picker": "../../components/sku-picker/index"
+  }
+}

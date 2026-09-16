@@ -1,0 +1,288 @@
+/* pages/member/index.wxss - 会员中心 */
+
+.page {
+  background: var(--color-bg);
+  min-height: 100vh;
+  position: relative;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+/* 顶部浅绿渐晕（设计稿 165deg #E3F3DC→#F8FBF6，高 230px） */
+.page-halo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 460rpx;
+  background: linear-gradient(165deg, #E3F3DC, #F8FBF6);
+  pointer-events: none;
+}
+
+/* ===== 页内标题（左上角黑体） ===== */
+.page-title {
+  position: relative;
+  padding-top: 32rpx;
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+/* ===== 会员玻璃卡 ===== */
+.member-card {
+  position: relative;
+  border-radius: 44rpx;
+  padding: 32rpx;
+  margin-top: 28rpx;
+}
+
+/* 头像行右侧箭头：点击去个人资料 */
+.member-arrow {
+  font-size: 40rpx;
+  color: var(--color-text-disabled);
+  flex-shrink: 0;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.member-avatar {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: var(--color-primary-bg);
+  border: 4rpx solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.member-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  min-width: 0;
+}
+
+.member-name-row {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.member-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* 等级徽章：不同等级换底色 */
+.member-badge {
+  font-size: 20rpx;
+  font-weight: 700;
+  border-radius: 18rpx;
+  padding: 4rpx 16rpx;
+}
+.member-badge.lv-0 { color: var(--color-text-secondary); background: rgba(36, 52, 38, 0.06); }
+.member-badge.lv-1 { color: #5B6B5D; background: #EDF1EC; }
+.member-badge.lv-2 { color: #B06F1E; background: linear-gradient(90deg, #FBE7C5, #FDF3E7); }
+.member-badge.lv-3 { color: #7B5EA7; background: linear-gradient(90deg, #EEE6FA, #F7F2FD); }
+
+.member-sub {
+  font-size: 22rpx;
+  color: #8AA08D;
+}
+
+/* ===== 成长进度 ===== */
+.growth {
+  margin-top: 28rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.growth-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 21rpx;
+  color: #8AA08D;
+}
+
+.growth-num {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.growth-bar {
+  height: 16rpx;
+  border-radius: 10rpx;
+  background: rgba(36, 52, 38, 0.07);
+  overflow: hidden;
+}
+
+.growth-fill {
+  height: 100%;
+  border-radius: 10rpx;
+  background: linear-gradient(90deg, #8FD284, #5CAE52);
+}
+
+/* 进度条下方等级标注（Lv.3 ←→ Lv.4） */
+.growth-levels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 19rpx;
+  color: var(--color-text-hint);
+}
+
+/* ===== 三栏数据 ===== */
+.member-stats {
+  margin-top: 24rpx;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1rpx solid rgba(36, 52, 38, 0.06);
+  padding-top: 24rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.stat-mid {
+  border-left: 1rpx solid rgba(36, 52, 38, 0.06);
+  border-right: 1rpx solid rgba(36, 52, 38, 0.06);
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #8AA08D;
+}
+
+/* ===== 快捷入口 2x2 ===== */
+.quick-grid {
+  position: relative;
+  margin-top: 28rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.quick-item {
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 36rpx;
+  padding: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.quick-icon {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 26rpx;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 38rpx 38rpx;
+}
+
+.quick-icon.bg-green { background-color: var(--color-primary-bg); }
+.quick-icon.bg-orange { background-color: var(--color-accent-bg); }
+
+.icon-calendar {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='16' rx='4'/%3E%3Cpath d='M8 3v4M16 3v4M9 14l2.2 2.2L15.5 12'/%3E%3C/svg%3E");
+}
+
+.icon-gift {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E8963F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12v8H4v-8M2 7h20v5H2zM12 7v13M12 7c-2-5-8-4-7 0M12 7c2-5 8-4 7 0'/%3E%3C/svg%3E");
+}
+
+.icon-ticket {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E8963F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9a2 2 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3z'/%3E%3Cpath d='M13 5v2M13 11v2M13 17v2' stroke-dasharray='0.1 3.4'/%3E%3C/svg%3E");
+}
+
+.icon-card {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='6' width='18' height='13' rx='3'/%3E%3Cpath d='M3 10h18M8 15h4'/%3E%3C/svg%3E");
+}
+
+.quick-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+  min-width: 0;
+}
+
+.quick-title {
+  font-size: 25rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.quick-sub {
+  font-size: 20rpx;
+  color: var(--color-text-hint);
+}
+
+/* ===== 会员专属权益（只展示当前会员的权益） ===== */
+.benefit-card {
+  position: relative;
+  margin-top: 28rpx;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 40rpx;
+  padding: 28rpx 32rpx 32rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.benefit-grid {
+  margin-top: 28rpx;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.benefit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.benefit-icon {
+  width: 44rpx;
+  height: 44rpx;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-discount { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1'/%3E%3C/svg%3E"); }
+.icon-freeship { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7h11v9H3zM14 10h4l3 3v3h-7z'/%3E%3Ccircle cx='7' cy='18' r='1.6'/%3E%3Ccircle cx='17' cy='18' r='1.6'/%3E%3C/svg%3E"); }
+.icon-fast { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 3 5 13.5h5L10 21l8-10.5h-5L13 3z'/%3E%3C/svg%3E"); }
+.icon-birthday { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12v8H4v-8M2 7h20v5H2zM12 7v13'/%3E%3Cpath d='M12 7c-2-5-8-4-7 0M12 7c2-5 8-4 7 0'/%3E%3C/svg%3E"); }
+
+.benefit-name {
+  font-size: 22rpx;
+  color: var(--color-text-light);
+}

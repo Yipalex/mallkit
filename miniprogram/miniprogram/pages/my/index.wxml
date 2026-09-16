@@ -1,0 +1,102 @@
+<!-- pages/my/index.wxml - 个人中心 -->
+<view class="page">
+
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 用户头部 -->
+  <view class="user-header">
+    <view class="avatar" bindtap="onAvatarTap">{{nicknameFirstChar}}</view>
+    <view class="user-meta">
+      <!-- 新版微信：input type="nickname" 设置昵称 -->
+      <input
+        class="nickname-input"
+        type="nickname"
+        value="{{userInfo.nickName || ''}}"
+        bindblur="onNicknameBlur"
+        placeholder="点击设置昵称"
+        placeholder-style="color:#9FB0A1"
+      />
+      <view class="badge-row">
+        <view class="member-badge lv-{{memberLevel}}">{{memberName}}</view>
+        <view wx:if="{{isDistributor}}" class="dist-badge">分销员</view>
+      </view>
+    </view>
+    <view class="settings-btn glass" bindtap="onGoSettings">
+      <view class="icon-gear"></view>
+    </view>
+  </view>
+
+  <!-- 玻璃数据栏：余额 / 积分 / 等级 -->
+  <view class="stats-card glass">
+    <view class="stat-item" bindtap="onGoRecharge">
+      <text class="stat-value">¥{{userBalance}}</text>
+      <text class="stat-label">余额</text>
+    </view>
+    <view class="stat-item stat-mid" bindtap="onGoCheckin">
+      <text class="stat-value">{{userPoints}}</text>
+      <text class="stat-label">积分</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">Lv.{{memberLevel}}</text>
+      <text class="stat-label">会员等级</text>
+    </view>
+  </view>
+
+  <!-- 我的订单卡片 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">我的订单</text>
+      <view class="section-more" bindtap="onGoOrders">
+        <text>全部订单 ›</text>
+      </view>
+    </view>
+    <view class="order-shortcuts">
+      <view class="shortcut-item" data-status="pending_payment" bindtap="onGoOrders">
+        <view class="shortcut-icon icon-bill"></view>
+        <text class="shortcut-label">待付款</text>
+      </view>
+      <view class="shortcut-item" data-status="paid" bindtap="onGoOrders">
+        <view class="shortcut-icon icon-box"></view>
+        <text class="shortcut-label">待发货</text>
+      </view>
+      <view class="shortcut-item" data-status="shipped" bindtap="onGoOrders">
+        <view class="shortcut-icon icon-truck"></view>
+        <text class="shortcut-label">待收货</text>
+      </view>
+      <view class="shortcut-item" data-status="completed" bindtap="onGoOrders">
+        <view class="shortcut-icon icon-done"></view>
+        <text class="shortcut-label">已完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-card">
+    <view class="menu-item" bindtap="onGoAddress">
+      <view class="menu-icon icon-address"></view>
+      <text class="menu-label">收货地址</text>
+      <view class="chevron"></view>
+    </view>
+    <view wx:if="{{isDistributor}}" class="menu-item" bindtap="onGoDistribution">
+      <view class="menu-icon icon-friends"></view>
+      <text class="menu-label">分销中心</text>
+      <view class="menu-tag">赚 5% 返利</view>
+      <view class="chevron"></view>
+    </view>
+    <view class="menu-item" bindtap="onGoHelp">
+      <view class="menu-icon icon-service"></view>
+      <text class="menu-label">联系客服</text>
+      <view class="chevron"></view>
+    </view>
+    <view class="menu-item last" bindtap="onGoSettings">
+      <view class="menu-icon icon-gear-green"></view>
+      <text class="menu-label">设置</text>
+      <view class="chevron"></view>
+    </view>
+  </view>
+
+  <!-- 悬浮玻璃底栏占位 -->
+  <view class="tabbar-space"></view>
+
+</view>

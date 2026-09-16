@@ -1,0 +1,206 @@
+/* pages/review/add.wxss - 商品评价页面样式 */
+
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding-bottom: 120rpx;
+}
+
+/* 商品信息 */
+.product-info {
+  background: var(--color-white);
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.product-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--border-radius-base);
+  flex-shrink: 0;
+}
+
+.product-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.product-name {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.product-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 评分区域 */
+.rating-section {
+  background: var(--color-white);
+  padding: 32rpx 24rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.section-title {
+  align-self: flex-start;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding-left: 16rpx;
+  border-left: 6rpx solid var(--color-primary);
+}
+
+.stars-container {
+  display: flex;
+  gap: 16rpx;
+}
+
+.star {
+  font-size: 80rpx;
+  color: var(--color-border);
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: #FF9800;
+}
+
+.rating-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+/* 评价内容 */
+.content-section {
+  background: var(--color-white);
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.review-input {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 16rpx;
+  background: var(--color-bg);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  margin-top: 16rpx;
+}
+
+.char-count {
+  text-align: right;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-hint);
+  margin-top: 8rpx;
+}
+
+/* 图片区域 */
+.images-section {
+  background: var(--color-white);
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.images-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 16rpx;
+}
+
+.image-item {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-base);
+}
+
+.image-remove {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+.image-add {
+  width: 160rpx;
+  height: 160rpx;
+  border: 2rpx dashed var(--color-border);
+  border-radius: var(--border-radius-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  background: var(--color-bg);
+}
+
+.add-icon {
+  font-size: 48rpx;
+  color: var(--color-text-hint);
+  line-height: 1;
+}
+
+.add-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-hint);
+}
+
+/* 提交按钮 */
+.submit-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.btn-submit {
+  width: 100%;
+  height: 88rpx;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-round);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-submit::after {
+  border: none;
+}
+
+.btn-submit[disabled] {
+  background: var(--color-border);
+  color: var(--color-text-hint);
+}

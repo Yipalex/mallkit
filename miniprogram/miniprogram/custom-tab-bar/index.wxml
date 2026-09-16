@@ -1,0 +1,18 @@
+<!-- 悬浮毛玻璃胶囊底栏 -->
+<view class="tabbar-wrap">
+  <view class="tabbar glass-bar">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="tab-item"
+      data-index="{{index}}"
+      bindtap="onTabTap"
+    >
+      <view class="tab-icon-box {{selected === index ? 'active' : ''}}">
+        <view class="tab-icon icon-{{item.key}}{{selected === index ? '-active' : ''}}"></view>
+        <view wx:if="{{item.key === 'cart' && cartCount > 0}}" class="tab-badge">{{cartCount > 99 ? '99+' : cartCount}}</view>
+      </view>
+      <text class="tab-label {{selected === index ? 'active' : ''}}">{{item.text}}</text>
+    </view>
+  </view>
+</view>

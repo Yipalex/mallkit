@@ -1,0 +1,60 @@
+<view class="page">
+
+  <!-- 地址 -->
+  <view class="card addr-card" bindtap="onChooseAddress">
+    <block wx:if="{{address}}">
+      <view class="addr-line1">
+        <text class="addr-name">{{address.name}}</text>
+        <text class="addr-phone">{{address.phone}}</text>
+      </view>
+      <view class="addr-line2">{{address.province}}{{address.city}}{{address.district}}{{address.detail}}</view>
+    </block>
+    <view wx:else class="addr-empty">＋ 点击选择收货地址</view>
+    <view class="addr-arrow">›</view>
+  </view>
+
+  <!-- 商品清单 -->
+  <view class="card">
+    <view class="item" wx:for="{{items}}" wx:key="index">
+      <image class="item-img" src="{{item.image}}" mode="aspectFill" />
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view wx:if="{{item.specText}}" class="item-spec">{{item.specText}}</view>
+        <view class="item-price">¥{{item.price}} × {{item.quantity}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card">
+    <input class="remark-input" placeholder="备注（选填）" value="{{remark}}" bindinput="onRemarkInput" />
+  </view>
+
+  <!-- 金额明细 -->
+  <view class="card fee-card">
+    <view class="fee-row">
+      <text>货款（企业承担）</text>
+      <text class="fee-free">¥{{goodsTotal}} 免付</text>
+    </view>
+    <view class="fee-row">
+      <text>运费</text>
+      <text wx:if="{{shippingFee === '0.00'}}" class="fee-free">包邮</text>
+      <text wx:else class="fee-pay">¥{{shippingFee}}（需自付）</text>
+    </view>
+    <view class="fee-divider"></view>
+    <view class="fee-row fee-total">
+      <text>你需支付</text>
+      <text class="fee-total-value">¥{{shippingFee}}</text>
+    </view>
+  </view>
+
+  <view class="hint">货款由 {{voucher.enterpriseName}} 承担，你仅需支付区域外运费（指定区域包邮）</view>
+
+  <!-- 底部提交 -->
+  <view class="footer-bar">
+    <button class="primary-btn {{submitting ? 'disabled' : ''}}" bindtap="onSubmit">
+      {{shippingFee === '0.00' ? '确认兑换（免付）' : '支付运费并兑换'}}
+    </button>
+  </view>
+
+</view>

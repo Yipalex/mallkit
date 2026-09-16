@@ -1,0 +1,47 @@
+<!-- pages/address/list.wxml - 收货地址管理 -->
+<view class="page">
+
+  <!-- 空状态 -->
+  <view wx:if="{{addresses.length === 0}}" class="empty-state">
+    <text class="empty-icon">📍</text>
+    <text class="empty-title">还没有收货地址</text>
+    <text class="empty-sub">添加地址后下单更快捷</text>
+  </view>
+
+  <!-- 地址卡列表 -->
+  <view wx:else class="addr-list">
+    <view
+      wx:for="{{addresses}}"
+      wx:key="id"
+      class="addr-card {{item.isDefault ? 'default' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="onSelect"
+    >
+      <view wx:if="{{item.isDefault}}" class="default-chip">默认</view>
+      <view class="addr-head">
+        <text class="addr-name">{{item.name}}</text>
+        <text class="addr-phone">{{item.phoneMask}}</text>
+      </view>
+      <text class="addr-detail">{{item.fullText}}</text>
+      <view class="addr-actions">
+        <view wx:if="{{!item.isDefault}}" class="addr-act" catchtap="onSetDefault" data-id="{{item.id}}">
+          <view class="act-icon icon-star"></view>设为默认
+        </view>
+        <view class="addr-act" catchtap="onEdit" data-id="{{item.id}}">
+          <view class="act-icon icon-edit"></view>编辑
+        </view>
+        <view class="addr-act" catchtap="onDelete" data-id="{{item.id}}">
+          <view class="act-icon icon-del"></view>删除
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+
+  <!-- 底部玻璃新增栏 -->
+  <view class="add-bar">
+    <view class="btn-add" bindtap="onAdd">＋ 新增收货地址</view>
+  </view>
+
+</view>

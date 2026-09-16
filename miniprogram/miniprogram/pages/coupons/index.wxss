@@ -1,0 +1,139 @@
+/* pages/coupons/index.wxss - 领券中心 */
+
+.page { background: var(--color-bg); min-height: 100vh; padding-bottom: 40rpx; }
+
+/* ===== 状态胶囊 tab ===== */
+.tabs {
+  display: flex;
+  gap: 12rpx;
+  padding: 28rpx 32rpx 8rpx;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg);
+}
+.tab {
+  flex: 1;
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--color-text-light);
+  background: var(--color-white);
+  border: 1rpx solid rgba(36, 52, 38, 0.1);
+  border-radius: 32rpx;
+  padding: 16rpx 0;
+}
+.tab.active {
+  color: #fff;
+  font-weight: 700;
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+/* ===== 票根券卡 ===== */
+.coupon-list {
+  padding: 20rpx 32rpx 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.coupon-card {
+  position: relative;
+  display: flex;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 36rpx;
+  overflow: hidden;
+}
+.coupon-card.dim { opacity: 0.55; }
+
+/* 新人角标 */
+.corner-badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 18rpx;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: 0 32rpx 0 20rpx;
+  padding: 6rpx 20rpx;
+  z-index: 2;
+}
+
+/* 左侧票根 */
+.stub {
+  width: 208rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  border-right: 1rpx dashed rgba(36, 52, 38, 0.12);
+  flex-shrink: 0;
+  padding: 26rpx 0;
+}
+.stub-green { background: linear-gradient(150deg, #EAF6E5, #F2F7EE); }
+.stub-orange { background: linear-gradient(150deg, #FDF3E7, #FFF9F0); }
+.stub-value { font-size: 44rpx; font-weight: 800; }
+.stub-green .stub-value { color: var(--color-primary); }
+.stub-orange .stub-value { color: var(--color-accent); }
+.stub-cond { font-size: 20rpx; }
+.stub-green .stub-cond { color: #8AA08D; }
+.stub-orange .stub-cond { color: #C9994F; }
+
+/* 中间信息 */
+.coupon-info {
+  flex: 1;
+  min-width: 0;
+  padding: 26rpx 28rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6rpx;
+}
+.coupon-title { font-size: 26rpx; font-weight: 700; color: var(--color-text-primary); }
+.coupon-desc { font-size: 21rpx; color: var(--color-text-hint); }
+.coupon-valid { font-size: 19rpx; color: var(--color-text-hint); }
+
+/* 右侧按钮 */
+.coupon-action { display: flex; align-items: center; padding-right: 28rpx; flex-shrink: 0; }
+.btn-get {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-primary);
+  border-radius: 32rpx;
+  padding: 16rpx 32rpx;
+  box-shadow: 0 8rpx 20rpx rgba(92, 174, 82, 0.3);
+}
+.btn-get-orange { background: var(--color-accent); box-shadow: 0 8rpx 20rpx rgba(232, 150, 63, 0.3); }
+.btn-got {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: var(--color-text-hint);
+  border: 1rpx solid rgba(36, 52, 38, 0.12);
+  border-radius: 32rpx;
+  padding: 16rpx 28rpx;
+}
+
+/* ===== 空/加载 ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 40rpx;
+  gap: 16rpx;
+}
+.empty-icon { font-size: 100rpx; }
+.empty-text { font-size: var(--font-size-base); color: var(--color-text-hint); }
+.loading-state { display: flex; justify-content: center; padding: 80rpx 0; }
+.loading-text { font-size: var(--font-size-sm); color: var(--color-text-hint); }
+
+/* ===== 底部提示条 ===== */
+.tip-bar {
+  margin: 32rpx 32rpx 0;
+  background: var(--color-primary-bg);
+  border-radius: 28rpx;
+  padding: 18rpx 28rpx;
+}
+.tip-text { font-size: 21rpx; color: #4A7A44; }

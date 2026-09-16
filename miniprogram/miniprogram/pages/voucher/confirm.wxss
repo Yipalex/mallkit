@@ -1,0 +1,37 @@
+.page { min-height: 100vh; background: #F8FBF6; padding: 24rpx 24rpx 160rpx; }
+
+.card { background: #fff; border-radius: 16rpx; padding: 28rpx; margin-bottom: 24rpx; }
+
+/* 地址 */
+.addr-card { position: relative; padding-right: 60rpx; }
+.addr-line1 { display: flex; align-items: baseline; }
+.addr-name { font-size: 30rpx; font-weight: bold; color: #333; margin-right: 20rpx; }
+.addr-phone { font-size: 26rpx; color: #666; }
+.addr-line2 { font-size: 26rpx; color: #666; margin-top: 12rpx; line-height: 1.5; }
+.addr-empty { font-size: 28rpx; color: #3f7a51; }
+.addr-arrow { position: absolute; right: 28rpx; top: 50%; transform: translateY(-50%); color: #ccc; font-size: 40rpx; }
+
+/* 商品 */
+.item { display: flex; padding: 12rpx 0; }
+.item-img { width: 120rpx; height: 120rpx; border-radius: 12rpx; flex-shrink: 0; }
+.item-info { flex: 1; padding-left: 20rpx; }
+.item-name { font-size: 28rpx; color: #333; }
+.item-spec { font-size: 24rpx; color: #999; margin-top: 8rpx; }
+.item-price { font-size: 28rpx; color: #e07b53; margin-top: 16rpx; }
+
+/* 备注 */
+.remark-input { font-size: 28rpx; }
+
+/* 金额 */
+.fee-row { display: flex; justify-content: space-between; align-items: center; font-size: 28rpx; color: #555; padding: 12rpx 0; }
+.fee-free { color: #3f7a51; }
+.fee-pay { color: #e07b53; }
+.fee-divider { height: 2rpx; background: #eef4ee; margin: 12rpx 0; }
+.fee-total { font-weight: bold; color: #333; }
+.fee-total-value { font-size: 36rpx; color: #e07b53; }
+
+.hint { font-size: 22rpx; color: #999; text-align: center; padding: 8rpx 24rpx; line-height: 1.5; }
+
+.footer-bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom)); background: #fff; box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.06); }
+.primary-btn { background: #3f7a51; color: #fff; font-size: 32rpx; font-weight: bold; border-radius: 44rpx; height: 88rpx; line-height: 88rpx; }
+.primary-btn.disabled { background: #c5d3c5; }

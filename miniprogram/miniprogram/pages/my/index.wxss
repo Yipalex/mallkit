@@ -1,0 +1,278 @@
+/* pages/my/index.wxss - 个人中心 */
+
+.page {
+  background: var(--color-bg);
+  min-height: 100vh;
+  position: relative;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+/* 顶部浅绿渐晕（设计稿高 200px） */
+.page-halo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 400rpx;
+  background: linear-gradient(165deg, #E3F3DC, #F8FBF6);
+  pointer-events: none;
+}
+
+/* ===== 用户头部 ===== */
+.user-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+  padding: 36rpx 12rpx 0;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: var(--color-primary-bg);
+  border: 5rpx solid #fff;
+  box-shadow: 0 8rpx 28rpx rgba(87, 141, 80, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  font-weight: 800;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.user-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  min-width: 0;
+}
+
+.nickname-input {
+  font-size: 34rpx;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  height: 48rpx;
+}
+
+.badge-row {
+  display: flex;
+  gap: 12rpx;
+}
+
+.member-badge {
+  font-size: 20rpx;
+  font-weight: 700;
+  border-radius: 18rpx;
+  padding: 4rpx 16rpx;
+}
+.member-badge.lv-0 { color: var(--color-text-secondary); background: rgba(36, 52, 38, 0.06); }
+.member-badge.lv-1 { color: #5B6B5D; background: #EDF1EC; }
+.member-badge.lv-2 { color: #B06F1E; background: linear-gradient(90deg, #FBE7C5, #FDF3E7); }
+.member-badge.lv-3 { color: #7B5EA7; background: linear-gradient(90deg, #EEE6FA, #F7F2FD); }
+
+.dist-badge {
+  font-size: 20rpx;
+  color: var(--color-primary);
+  background: var(--color-primary-bg);
+  border-radius: 18rpx;
+  padding: 4rpx 16rpx;
+}
+
+/* 设置圆钮（玻璃） */
+.settings-btn {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-gear {
+  width: 34rpx;
+  height: 34rpx;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23243426' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.6 1.6 0 0 0 .3 1.7l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.7-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.7.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.7 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.7.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.7-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.7v.1a1.6 1.6 0 0 0 1.5 1h.2a2 2 0 1 1 0 4h-.2a1.6 1.6 0 0 0-1.5 1z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* ===== 玻璃数据栏 ===== */
+.stats-card {
+  position: relative;
+  margin-top: 32rpx;
+  border-radius: 44rpx;
+  padding: 28rpx 16rpx;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.stat-mid {
+  border-left: 1rpx solid rgba(36, 52, 38, 0.06);
+  border-right: 1rpx solid rgba(36, 52, 38, 0.06);
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #8AA08D;
+}
+
+/* ===== 我的订单卡片 ===== */
+.section-card {
+  position: relative;
+  margin-top: 28rpx;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 40rpx;
+  padding: 28rpx 32rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.section-more {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+}
+
+.order-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.shortcut-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.shortcut-icon {
+  width: 44rpx;
+  height: 44rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.icon-bill {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233C4A3E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='16' height='17' rx='3'/%3E%3Cpath d='M9 9h6M9 13h6M9 17h3'/%3E%3C/svg%3E");
+}
+
+.icon-box {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233C4A3E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z'/%3E%3Cpath d='M4 7.5l8 4.5 8-4.5M12 12v9'/%3E%3C/svg%3E");
+}
+
+.icon-truck {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233C4A3E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7h11v9H3zM14 10h4l3 3v3h-7z'/%3E%3Ccircle cx='7' cy='18' r='1.6'/%3E%3Ccircle cx='17' cy='18' r='1.6'/%3E%3C/svg%3E");
+}
+
+.icon-done {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233C4A3E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 9h8M8 13h5'/%3E%3Cpath d='M4 4h16v12H13l-4 4v-4H4z'/%3E%3C/svg%3E");
+}
+
+.shortcut-label {
+  font-size: 21rpx;
+  color: var(--color-text-light);
+}
+
+/* ===== 功能菜单 ===== */
+.menu-card {
+  position: relative;
+  margin-top: 28rpx;
+  background: var(--color-white);
+  border: 1rpx solid var(--color-border);
+  border-radius: 40rpx;
+  padding: 8rpx 32rpx;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid var(--color-divider);
+}
+
+.menu-item.last { border-bottom: none; }
+
+.menu-icon {
+  width: 38rpx;
+  height: 38rpx;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.icon-address {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z'/%3E%3Ccircle cx='12' cy='11' r='2.6'/%3E%3C/svg%3E");
+}
+
+.icon-friends {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.4'/%3E%3Cpath d='M3.5 19.5a5.5 5.5 0 0 1 11 0'/%3E%3Ccircle cx='17' cy='9' r='2.6'/%3E%3Cpath d='M15.5 14.6a4.6 4.6 0 0 1 6 4.4'/%3E%3C/svg%3E");
+}
+
+.icon-card {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='6' width='18' height='13' rx='3'/%3E%3Cpath d='M3 10h18M8 15h4'/%3E%3C/svg%3E");
+}
+
+.icon-gift {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12v8H4v-8M2 7h20v5H2zM12 7v13M12 7c-2-5-8-4-7 0M12 7c2-5 8-4 7 0'/%3E%3C/svg%3E");
+}
+
+.icon-service {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 13a8 8 0 0 1 16 0'/%3E%3Crect x='3' y='13' width='4' height='7' rx='2'/%3E%3Crect x='17' y='13' width='4' height='7' rx='2'/%3E%3Cpath d='M19 20a3 3 0 0 1-3 2h-2'/%3E%3C/svg%3E");
+}
+
+.icon-gear-green {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CAE52' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.6 1.6 0 0 0 .3 1.7l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.7-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.7.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.7 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.7.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.7-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.7v.1a1.6 1.6 0 0 0 1.5 1h.2a2 2 0 1 1 0 4h-.2a1.6 1.6 0 0 0-1.5 1z'/%3E%3C/svg%3E");
+}
+
+.menu-label {
+  flex: 1;
+  font-size: 26rpx;
+  color: var(--color-text-primary);
+}
+
+.menu-tag {
+  font-size: 20rpx;
+  color: var(--color-accent);
+  background: var(--color-accent-bg);
+  border-radius: 16rpx;
+  padding: 4rpx 16rpx;
+}
+
+/* 右箭头（线性 chevron） */
+.chevron {
+  width: 28rpx;
+  height: 28rpx;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B9C4BA' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") no-repeat center / contain;
+  flex-shrink: 0;
+}

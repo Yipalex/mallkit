@@ -1,0 +1,95 @@
+<!-- 企业礼券落地页 -->
+<view class="page">
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-box">
+    <view class="loading-text">礼券核验中…</view>
+  </view>
+
+  <!-- 不可用 -->
+  <view wx:elif="{{unusable}}" class="unusable-box">
+    <view class="unusable-icon">🎫</view>
+    <view class="unusable-title">礼券不可用</view>
+    <view class="unusable-reason">{{unusableReason}}</view>
+    <view wx:if="{{voucher}}" class="unusable-sub">{{voucher.enterpriseName}} · {{voucher.batchName}}</view>
+  </view>
+
+  <!-- 可用 -->
+  <block wx:else>
+    <!-- 券头 -->
+    <view class="voucher-card">
+      <view class="voucher-brand">{{voucher.enterpriseName}} 专属福利</view>
+      <view class="voucher-name">{{voucher.batchName}}</view>
+      <view wx:if="{{voucher.type === 'product'}}" class="voucher-meta">商品兑换券 · 扫码直兑</view>
+      <view wx:else class="voucher-balance">
+        <text class="bal-label">券内余额</text>
+        <text class="bal-value">¥{{voucher.remaining}}</text>
+        <text class="bal-tip">{{voucher.singleOrderOnly ? '限一次使用' : '可分多次使用'}}</text>
+      </view>
+      <view class="voucher-hint">下单免付货款，货款由企业承担；指定区域包邮，区域外运费需自付</view>
+    </view>
+
+    <!-- 商品型：单商品直兑 -->
+    <block wx:if="{{voucher.type === 'product'}}">
+      <view class="section-title">兑换商品</view>
+      <view class="product-hero">
+        <image class="hero-img" src="{{product.image}}" mode="aspectFill" />
+        <view class="hero-info">
+          <view class="hero-name">{{product.name}}</view>
+          <view wx:if="{{product.skuName}}" class="hero-sku">{{product.skuName}}</view>
+          <view class="hero-qty">数量：{{product.quantity}} {{product.unit}}</view>
+        </view>
+      </view>
+      <view class="footer-bar">
+        <button class="primary-btn" bindtap="onExchangeProduct">立即兑换</button>
+      </view>
+    </block>
+
+    <!-- 充值卡型：可购商品列表 -->
+    <block wx:else>
+      <view class="section-title">可选商品</view>
+      <view class="product-list">
+        <view class="product-item" wx:for="{{products}}" wx:key="productId">
+          <image class="item-img" src="{{item.image}}" mode="aspectFill" />
+          <view class="item-info">
+            <view class="item-name">{{item.name}}</view>
+            <view class="item-price">¥{{item.price}} <text class="item-unit">/ {{item.unit}}</text></view>
+          </view>
+          <view wx:if="{{item.stock <= 0}}" class="item-soldout">售罄</view>
+          <view wx:else class="item-add" data-pid="{{item.productId}}" bindtap="onAddToBag">＋</view>
+        </view>
+      </view>
+
+      <!-- 券内购物袋 -->
+      <view wx:if="{{bagCount > 0}}" class="bag">
+        <view class="bag-title">已选 {{bagCount}} 件 · 合计 ¥{{bagTotal}}</view>
+        <view class="bag-item" wx:for="{{bag}}" wx:for-item="bi" wx:for-index="bk" wx:key="bk">
+          <view class="bag-name">{{bi.name}}<text wx:if="{{bi.specText}}" class="bag-spec"> · {{bi.specText}}</text></view>
+          <view class="bag-ctrl">
+            <view class="qbtn" data-key="{{bk}}" bindtap="onBagMinus">－</view>
+            <text class="qnum">{{bi.quantity}}</text>
+            <view class="qbtn" data-key="{{bk}}" bindtap="onBagPlus">＋</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="footer-bar">
+        <view class="footer-total">合计 <text class="footer-price">¥{{bagTotal}}</text></view>
+        <button class="primary-btn {{bagCount === 0 ? 'disabled' : ''}}" bindtap="onCheckoutBag">去结算</button>
+      </view>
+    </block>
+  </block>
+
+  <!-- SKU 选择弹窗 -->
+  <view wx:if="{{skuPickerVisible}}" class="sku-mask" bindtap="closeSkuPicker">
+    <view class="sku-panel" catchtap="">
+      <view class="sku-panel-title">{{skuPickerProduct.name}} · 选择规格</view>
+      <view class="sku-opt" wx:for="{{skuPickerProduct.skus}}" wx:key="skuId"
+            data-skuid="{{item.skuId}}" bindtap="onPickSku">
+        <text>{{item.specText}}</text>
+        <text class="sku-price">¥{{item.price}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>

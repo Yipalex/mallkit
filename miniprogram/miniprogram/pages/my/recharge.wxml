@@ -1,0 +1,82 @@
+<!-- pages/my/recharge.wxml - 账户充值 -->
+<view class="page">
+
+  <!-- 登录引导组件 -->
+  <login-guide show="{{showLoginGuide}}" bindclose="onCloseLoginGuide" />
+
+  <block wx:if="{{!showLoginGuide}}">
+    <!-- 顶部浅绿渐晕 -->
+    <view class="page-halo"></view>
+
+    <!-- 玻璃余额卡 -->
+    <view class="balance-card">
+      <text class="balance-label">账户余额（元）</text>
+      <text class="balance-value">{{balance}}</text>
+      <view class="balance-detail" bindtap="onGoBalanceDetail">
+        <text>余额明细</text>
+        <text class="balance-detail-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 选择充值金额 -->
+    <view class="section-title">选择充值金额</view>
+    <view class="amount-grid">
+      <view
+        wx:for="{{amountOptions}}"
+        wx:key="index"
+        class="amount-item {{selectedAmount === index ? 'selected' : ''}}"
+        bindtap="onSelectAmount"
+        data-index="{{index}}"
+      >
+        <view wx:if="{{item.hot}}" class="amount-hot">超值</view>
+        <text class="amount-value">¥{{item.amount}}</text>
+        <text class="amount-bonus" wx:if="{{item.points > 0}}">送 {{item.points}} 积分</text>
+        <text class="amount-bonus amount-bonus-none" wx:else>无赠送</text>
+      </view>
+      <!-- 自定义金额 -->
+      <view
+        class="amount-item amount-custom {{selectedAmount === -2 ? 'selected' : ''}}"
+        bindtap="onCustomAmount"
+      >
+        <text class="amount-value" wx:if="{{customAmount}}">¥{{customAmount}}</text>
+        <text class="amount-custom-text" wx:else>自定义</text>
+      </view>
+    </view>
+
+    <!-- 支付方式 -->
+    <view class="section-title">支付方式</view>
+    <view class="pay-card">
+      <view class="pay-row">
+        <view class="pay-icon"></view>
+        <text class="pay-name">微信支付</text>
+        <view class="pay-check"></view>
+      </view>
+    </view>
+
+    <!-- 说明条 -->
+    <view class="tip-bar">
+      <text class="tip-text">充值实时到账，满 ¥100 起每充 ¥1 送 1 积分</text>
+    </view>
+
+    <!-- 用户协议 -->
+    <view class="agree-row">
+      <view class="checkbox {{agreed ? 'checked' : ''}}" bindtap="onToggleAgree"></view>
+      <text class="agree-text">我已阅读并同意<text class="agree-link" bindtap="onViewAgreement">《充值服务个人信息授权声明》</text></text>
+    </view>
+
+    <view class="bottom-space"></view>
+
+    <!-- 底部玻璃结算栏 -->
+    <view class="recharge-bar">
+      <view class="bar-summary">
+        <text class="bar-label">实付</text>
+        <view class="bar-line">
+          <text class="bar-amount">¥{{payAmount}}</text>
+          <text class="bar-bonus" wx:if="{{payBonus > 0}}">送 {{payBonus}} 积分</text>
+        </view>
+      </view>
+      <view class="btn-recharge {{!agreed || payAmount <= 0 ? 'disabled' : ''}}" bindtap="onRecharge">立即充值</view>
+    </view>
+  </block>
+
+</view>

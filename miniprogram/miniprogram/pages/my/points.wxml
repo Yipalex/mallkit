@@ -1,0 +1,35 @@
+<!-- pages/my/points.wxml - 积分明细（point_logs 流水） -->
+<view class="page">
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 当前积分卡 -->
+  <view class="head-card">
+    <text class="head-label">当前积分</text>
+    <text class="head-num">{{points}}</text>
+  </view>
+
+  <!-- 流水列表 -->
+  <view wx:if="{{logs.length > 0}}" class="log-card">
+    <view wx:for="{{logs}}" wx:key="_id" class="log-row">
+      <view class="log-info">
+        <text class="log-desc">{{item.desc}}</text>
+        <text class="log-time">{{item.timeText}}</text>
+      </view>
+      <text class="log-points {{item.points >= 0 ? 'plus' : 'minus'}}">{{item.pointsText}}</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{!loading}}" class="empty-state">
+    <text class="empty-icon">✨</text>
+    <text class="empty-title">还没有积分记录</text>
+    <text class="empty-sub">签到、评价、下单都能赚积分</text>
+  </view>
+
+  <!-- 加载/到底 -->
+  <view class="list-status">
+    <text wx:if="{{loading}}" class="text-hint">加载中...</text>
+    <text wx:elif="{{logs.length > 0 && !hasMore}}" class="text-hint">— 到底啦 —</text>
+  </view>
+</view>

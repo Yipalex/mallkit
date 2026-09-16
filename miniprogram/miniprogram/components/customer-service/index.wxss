@@ -1,0 +1,46 @@
+/* 浮动客服按钮：固定右下角，不随页面滚动 */
+.cs-fab {
+  position: fixed;
+  right: 24rpx;
+  bottom: calc(140rpx + env(safe-area-inset-bottom));
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 100rpx;
+  background: var(--color-white, #ffffff);
+  box-shadow: var(--shadow-base, 0 4rpx 16rpx rgba(0, 0, 0, 0.16));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.cs-icon {
+  font-size: 40rpx;
+  line-height: 1;
+}
+
+.cs-text {
+  margin-top: 2rpx;
+  font-size: 20rpx;
+  color: var(--color-text-secondary, #666666);
+  line-height: 1.2;
+}
+
+/* 透明覆盖层 button，铺满整个 .cs-fab，负责响应 open-type=contact（复用 help 页手法） */
+.cs-hit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+.cs-hit::after { border: none; }

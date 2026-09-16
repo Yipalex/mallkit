@@ -1,0 +1,61 @@
+<!-- pages/gift/index.wxml - 积分礼品 -->
+<view class="page">
+  <!-- 顶部浅绿渐晕 -->
+  <view class="page-halo"></view>
+
+  <!-- 玻璃积分卡 -->
+  <view class="points-card">
+    <view class="points-main">
+      <text class="points-label">我的积分</text>
+      <text class="points-num">{{points}}</text>
+    </view>
+    <view class="points-actions">
+      <view class="btn-detail" bindtap="onGoPointsDetail">积分明细</view>
+      <view class="btn-earn" bindtap="onGoCheckin">去赚积分</view>
+    </view>
+  </view>
+
+  <!-- 筛选 chips（按积分区间） -->
+  <view class="chips">
+    <view
+      wx:for="{{chips}}"
+      wx:key="*this"
+      class="chip {{activeChip === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="onChipChange"
+    >{{item}}</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="empty-state">
+    <text class="empty-title">加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{!showGifts.length}}" class="empty-state">
+    <text class="empty-icon">🎁</text>
+    <text class="empty-title">暂无礼品</text>
+    <text class="empty-sub">积分攒起来，好礼等你换</text>
+  </view>
+
+  <!-- 礼品网格 -->
+  <view wx:else class="gift-grid">
+    <view
+      wx:for="{{showGifts}}"
+      wx:key="_id"
+      class="gift-card {{item.enough ? '' : 'dim'}}"
+    >
+      <image wx:if="{{item.image}}" class="gift-img" src="{{item.image}}" mode="aspectFill" />
+      <view wx:else class="gift-img gift-img-placeholder">🎁</view>
+      <view class="gift-info">
+        <text class="gift-name">{{item.name}}</text>
+        <view class="gift-footer">
+          <text class="gift-points {{item.enough ? '' : 'gift-points-dim'}}">{{item.points}}<text class="gift-points-unit"> 积分</text></text>
+          <view wx:if="{{item.enough}}" class="btn-exchange" catchtap="onExchange" data-item="{{item}}">兑换</view>
+          <view wx:else class="btn-lack">差 {{item.lack}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

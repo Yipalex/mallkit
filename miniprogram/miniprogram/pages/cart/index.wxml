@@ -1,0 +1,109 @@
+<!-- pages/cart/index.wxml - 购物车页面 -->
+
+<view class="cart-page">
+
+  <!-- 页内标题：购物车 (N) + 清空 -->
+  <view class="cart-header" wx:if="{{cartItems.length > 0}}">
+    <text class="cart-title">购物车 <text class="cart-title-count">({{cartItems.length}})</text></text>
+    <text class="topbar-clear" bindtap="onClearCart">清空</text>
+  </view>
+
+  <!-- 凑单提示条（有更高门槛的券时显示） -->
+  <view wx:if="{{couponHint && cartItems.length > 0}}" class="coupon-bar" bindtap="onGoMakeUp">
+    <text class="coupon-bar-icon">🎟️</text>
+    <text class="coupon-bar-text">{{couponHint}}</text>
+    <text class="coupon-bar-btn">去凑单 ›</text>
+  </view>
+
+  <!-- 空购物车 -->
+  <view wx:if="{{cartItems.length === 0}}" class="empty-state">
+    <text class="empty-icon">🛒</text>
+    <text class="empty-text">购物车空空如也</text>
+    <navigator url="/pages/index/index" open-type="switchTab" class="btn-primary go-shop">去选购</navigator>
+  </view>
+
+  <!-- 购物车列表 -->
+  <block wx:else>
+    <view class="cart-list">
+      <view
+        wx:for="{{cartItems}}"
+        wx:key="uniqueKey"
+        class="swipe-wrap"
+        data-index="{{index}}"
+        bindtouchstart="onTouchStart"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd"
+      >
+        <view class="cart-item {{item.selected ? '' : 'dim'}}" style="transform: translateX({{item.offsetX || 0}}rpx); transition: {{item.transitioning ? 'transform 0.2s' : 'none'}};">
+          <!-- 圆形勾选框 -->
+          <view
+            class="checkbox {{item.selected ? 'checked' : ''}}"
+            data-index="{{index}}"
+            bindtap="onToggleSelect"
+          ></view>
+
+          <!-- 商品图片 -->
+          <image class="item-img" src="{{item.image}}" mode="aspectFill" bindtap="onItemTap" data-id="{{item.productId}}" />
+
+          <!-- 商品信息 -->
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-spec" wx:if="{{item.specChip}}">{{item.specChip}}</text>
+            <view class="item-bottom">
+              <text class="item-price">¥{{item.price}}</text>
+              <view class="qty-control">
+                <view class="qty-btn {{item.quantity <= 1 ? 'qty-btn-min' : ''}}" data-index="{{index}}" data-action="minus" bindtap="onQuantityChange">−</view>
+                <text class="qty-num">{{item.quantity}}</text>
+                <view class="qty-btn" data-index="{{index}}" data-action="plus" bindtap="onQuantityChange">+</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 左滑出现的删除按钮 -->
+        <view class="swipe-delete" data-index="{{index}}" bindtap="onDeleteItem">删除</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 为你推荐 -->
+  <view wx:if="{{recommends.length > 0}}" class="rec-section">
+    <text class="rec-title">为你推荐</text>
+    <view class="rec-grid">
+      <view
+        wx:for="{{recommends}}"
+        wx:key="_id"
+        class="rec-card"
+        data-id="{{item._id}}"
+        bindtap="onItemTap"
+      >
+        <image class="rec-img" src="{{item.mainImage}}" mode="aspectFill" />
+        <view class="rec-info">
+          <text class="rec-name">{{item.name}}</text>
+          <text class="rec-price">¥{{item.recPrice}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部结算栏（玻璃卡片，悬浮在玻璃底栏上方） -->
+  <view wx:if="{{cartItems.length > 0}}" class="checkout-bar glass">
+    <!-- 全选 -->
+    <view class="select-all flex-center" bindtap="onToggleSelectAll">
+      <view class="checkbox {{selectedAll ? 'checked' : ''}}"></view>
+      <text class="select-all-text">全选</text>
+    </view>
+
+    <!-- 合计（两行：合计金额 + 优惠/运费说明） -->
+    <view class="total-wrap">
+      <view class="total-line">
+        <text class="total-label">合计 </text>
+        <text class="total-price">¥{{totalPrice}}</text>
+      </view>
+      <text class="total-sub">{{checkoutSub}}</text>
+    </view>
+
+    <!-- 结算按钮（用 view 不用 button：button 有一套顽固的默认样式） -->
+    <view class="btn-checkout" bindtap="onCheckout">结算 ({{selectedCount}})</view>
+  </view>
+
+</view>

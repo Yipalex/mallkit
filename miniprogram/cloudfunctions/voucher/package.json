@@ -1,0 +1,9 @@
+{
+  "name": "voucher",
+  "version": "1.0.0",
+  "description": "企业礼券：扫码校验 + 免付货款下单（货款扣企业余额）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

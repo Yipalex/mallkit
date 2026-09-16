@@ -1,0 +1,33 @@
+<view class="product-card" bindtap="onTap">
+  <view class="product-img-wrap">
+    <image class="product-image" src="{{product.mainImage}}" mode="aspectFill" lazy-load="true" />
+    <view class="sales-badge" wx:if="{{product.salesCount > 0}}">已售{{product.salesCount}}</view>
+    <!-- 限时秒杀角标（仅有效秒杀时显示，口径由云函数 computeSeckillView 判定）-->
+    <view class="seckill-badge" wx:if="{{product.seckillActive}}">秒杀</view>
+    <!-- 售罄蒙版（未下架但无库存，仍显示卡片） -->
+    <view class="card-soldout-mask" wx:if="{{isSoldOut}}">
+      <text class="card-soldout-text">售罄</text>
+    </view>
+  </view>
+  <view class="product-info">
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-desc">{{product.description}}</text>
+    <view class="product-bottom">
+      <!-- 有效秒杀：显示秒杀价（多规格加"起"）+ 划线原价；否则原样显示原价 -->
+      <view class="price-wrap" wx:if="{{product.seckillActive}}">
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{product.seckillPrice}}</text>
+        <text class="price-unit" wx:if="{{product.seckillIsMultiSku}}"> 起</text>
+        <text class="price-old">¥{{product.basePrice}}</text>
+      </view>
+      <view class="price-wrap" wx:else>
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{product.basePrice}}</text>
+        <text class="price-unit" wx:if="{{product.hasSku}}"> 起</text>
+        <text class="price-unit">/{{product.unit || 'kg'}}</text>
+      </view>
+      <!-- 墨色圆形加购按钮：默认「+」，加入成功切绿底勾 -->
+      <view class="add-cart-btn {{added ? 'added' : ''}} {{isSoldOut ? 'disabled' : ''}}" catchtap="onAddCart"></view>
+    </view>
+  </view>
+</view>

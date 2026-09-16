@@ -1,0 +1,145 @@
+<!-- pages/index/index.wxml - 首页布局 -->
+
+<view class="page">
+
+  <!-- 品牌头部：品牌 logo + 副标语 -->
+  <view class="brand-header">
+    <image class="brand-logo" src="/assets/logo-brush.png" mode="heightFix" />
+    <text class="brand-slogan">优选好物 · 送到家</text>
+  </view>
+
+  <!-- 玻璃搜索入口（点击跳搜索页） -->
+  <view class="search-entry glass" bindtap="onGoSearch">
+    <view class="search-icon"></view>
+    <text class="search-placeholder">搜索商品...</text>
+  </view>
+
+  <!-- 轮播图：大圆角卡片 -->
+  <swiper
+    class="banner"
+    indicator-dots="{{banners.length > 1}}"
+    indicator-color="rgba(36,52,38,0.2)"
+    indicator-active-color="#6FC363"
+    autoplay="{{true}}"
+    interval="3000"
+    circular="{{true}}"
+  >
+    <swiper-item wx:for="{{banners}}" wx:key="_id">
+      <image class="banner-img" src="{{item.imageUrl}}" mode="aspectFill" />
+    </swiper-item>
+    <swiper-item wx:if="{{banners.length === 0}}">
+      <view class="banner-placeholder">
+        <text class="banner-tag">新品首发</text>
+        <text class="banner-title">示例商城 · 优选好物</text>
+        <text class="banner-sub">精选上新 次日送达</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 功能入口：玻璃胶囊卡片，线性图标 -->
+  <view class="entry-grid glass">
+    <view class="entry-item" bindtap="onGoFresh">
+      <view class="entry-icon icon-flash"></view>
+      <text class="entry-label">及时达</text>
+    </view>
+    <view class="entry-item" bindtap="onGoCoupons">
+      <view class="entry-icon icon-ticket"></view>
+      <text class="entry-label">领券中心</text>
+    </view>
+    <view class="entry-item" bindtap="onGoCheckin">
+      <view class="entry-icon icon-calendar"></view>
+      <text class="entry-label">每日签到</text>
+    </view>
+    <view class="entry-item" bindtap="onGoHelp">
+      <view class="entry-icon icon-service"></view>
+      <text class="entry-label">联系客服</text>
+    </view>
+  </view>
+
+  <!-- 限时秒杀（有秒杀商品才显示） -->
+  <view wx:if="{{seckill.length > 0}}" class="seckill-card">
+    <view class="seckill-head">
+      <view class="seckill-title-wrap">
+        <text class="seckill-title">限时秒杀</text>
+        <view class="seckill-countdown">
+          <text class="cd-box">{{countdown.h}}</text>
+          <text class="cd-colon">:</text>
+          <text class="cd-box">{{countdown.m}}</text>
+          <text class="cd-colon">:</text>
+          <text class="cd-box">{{countdown.s}}</text>
+        </view>
+      </view>
+    </view>
+    <scroll-view class="seckill-list" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
+      <view
+        wx:for="{{seckill}}"
+        wx:key="_id"
+        class="seckill-item"
+        data-id="{{item._id}}"
+        bindtap="onSeckillTap"
+      >
+        <image class="seckill-img" src="{{item.mainImage}}" mode="aspectFill" />
+        <text class="seckill-name text-ellipsis">{{item.name}}</text>
+        <view class="seckill-price-row">
+          <text class="seckill-price">¥{{item.seckillPrice}}</text>
+          <text class="seckill-original">¥{{item.originalPrice}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 商品分类标签 -->
+  <scroll-view class="category-tabs" scroll-x="{{true}}" enable-flex="{{true}}">
+    <view
+      wx:for="{{categories}}"
+      wx:key="id"
+      class="category-tab {{activeCategory === item.id ? 'active' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="onCategoryChange"
+    >
+      {{item.name}}
+    </view>
+  </scroll-view>
+
+  <!-- 商品列表（两列网格） -->
+  <view class="product-grid">
+    <view
+      wx:for="{{products}}"
+      wx:key="_id"
+      class="product-item"
+      data-id="{{item._id}}"
+    >
+      <product-card
+        product="{{item}}"
+        bind:producttap="onProductTap"
+        bind:addcart="onAddToCart"
+        bind:specrequest="onSpecRequest"
+      />
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="load-status">
+    <view wx:if="{{isLoading}}" class="loading-text text-hint text-center">加载中...</view>
+    <view wx:elif="{{!hasMore && products.length > 0}}" class="no-more text-hint text-center">— 已显示全部商品 —</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!isLoading && products.length === 0}}" class="empty-state">
+    <text class="empty-icon">✨</text>
+    <text class="empty-text">暂无商品</text>
+  </view>
+
+  <!-- 悬浮玻璃底栏占位 -->
+  <view class="tabbar-space"></view>
+
+  <!-- 多规格商品：卡片「+」弹出的规格选择浮层 -->
+  <sku-picker product="{{skuPickerProduct}}" show="{{showSkuPicker}}" bind:confirm="onSkuConfirm" bind:close="onSkuClose" />
+
+  <!-- 营销弹窗 -->
+  <popup-banner popup="{{popup}}" show="{{showPopup}}" bind:close="onPopupClose" />
+
+  <!-- 浮动客服按钮 -->
+  <customer-service />
+
+</view>

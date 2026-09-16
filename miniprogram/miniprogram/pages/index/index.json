@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "示例商城",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "product-card": "../../components/product-card/index",
+    "sku-picker": "../../components/sku-picker/index",
+    "popup-banner": "../../components/popup-banner/index",
+    "customer-service": "../../components/customer-service/index"
+  }
+}
