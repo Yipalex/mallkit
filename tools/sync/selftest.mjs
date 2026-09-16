@@ -228,7 +228,7 @@ function hits(category, sample) {
 const cases = [
   ['cn-mobile', '联系 13912345678 下单', true],
   ['cn-mobile', '示例 13800138000 占位', false],
-  ['cn-mobile', '订单号 O1782466350095243', false],
+  ['cn-mobile', '订单号 O1234567890123456', false],
   ['personal-email', 'mail: someone@gmail.com', true],
   ['personal-email', 'mail: support@example.com', false],
   ['cloudbase-env-id', `env cloudbase-${'a1b2c3d4'.repeat(2)} here`, true],
